@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Grenade/GrenadeThrow.png" type="Texture" id=1]
+[ext_resource path="res://Grenade/GrenadeThrow.gd" type="Script" id=2]
+
+[node name="GrenadeThrow" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 10, -10 )
+rotation = -2.61799
+scale = Vector2( -1, 1 )
+texture = ExtResource( 1 )
+offset = Vector2( 25, 0 )

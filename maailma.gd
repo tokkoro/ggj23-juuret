@@ -17,6 +17,7 @@ const ROUND_DURATION = 10.0
 
 var players = []
 var player_spawn_points = [Vector2(0,-100), Vector2(100,-100), Vector2(300,-100), Vector2(400,-100)]
+var round_index = -1;
 
 func is_game_paused():
 	if transition:
@@ -24,6 +25,7 @@ func is_game_paused():
 	return false
 
 func new_round():
+	round_index += 1
 	# play new round audio
 	round_time_left = ROUND_DURATION
 	transition = false
@@ -39,6 +41,14 @@ func new_round():
 
 		players.append(player)
 		add_child(player)
+		
+	var terraingen = preload("res://terrain/terraingen-node.tscn").instance()
+	terraingen.name = "terraingen_round_" + str(round_index)
+	terraingen.position.y += round_index * terraingen.get_terrain_whole_height()
+	add_child(terraingen)
+	
+	$game_cam.start_move_to_next_round(terraingen)
+	
 	print("signal: round_start")
 	emit_signal("round_start")
 

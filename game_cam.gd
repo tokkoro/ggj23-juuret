@@ -39,6 +39,14 @@ func _process(delta: float):
 	var time_now = Time.get_ticks_usec() / 1000000.0
 	
 	transition(delta, time_now)
-	rotation = sin(time_now / 4.0) * PI / 128.0
-	
+	if rotating:
+		rotation = sin(time_now / 4.0) * PI / 128.0
+	else:
+		rotation = 0;
+			
 	# rotation = randf() * PI
+	
+func _input(event):
+	if Input.is_action_pressed("stop_rotation"):
+		rotating = !rotating
+		print("rotating is " + str(rotating))

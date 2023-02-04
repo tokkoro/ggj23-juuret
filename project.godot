@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "Terraingen",
+"language": "GDScript",
+"path": "res://terrain/terraingen.gd"
+} ]
+_global_script_class_icons={
+"Terraingen": ""
+}
+
 [application]
 
 config/name="Perunasota"
@@ -88,7 +98,7 @@ player_throw_3={
 
 [mono]
 
-project/assembly_name="Perunasota-terraingen"
+project/assembly_name="Perunasota"
 
 [physics]
 

@@ -10,8 +10,10 @@ func _ready():
 	connect("body_entered", self, "_body_entered_asdf")
 	spawn_time = Time.get_ticks_msec()
 
-func _body_entered_asdf(node):
-	if "terrain" in node.get_name() or "World" in node.get_name():
+func _body_entered_asdf(node: PhysicsBody2D):
+	var is_ground = node.get_collision_mask_bit(10)
+
+	if is_ground:
 		# istutu
 		var sprout = preload("res://Sprout/potato_sprout.tscn").instance()
 		sprout.position = position

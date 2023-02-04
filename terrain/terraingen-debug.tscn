@@ -25,6 +25,35 @@ void vertex() {
 shader = SubResource( 7 )
 shader_param/progress = 0.0
 
+[sub_resource type="Gradient" id=13]
+offsets = PoolRealArray( 0.0949153, 0.137288, 0.19322, 0.274576, 0.550847, 0.988136 )
+colors = PoolColorArray( 0, 0, 0, 0, 0, 0, 0, 0.979102, 1, 0, 0, 0.981823, 1, 0.632812, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0.443137 )
+
+[sub_resource type="GradientTexture" id=14]
+gradient = SubResource( 13 )
+
+[sub_resource type="OpenSimplexNoise" id=15]
+
+[sub_resource type="NoiseTexture" id=16]
+seamless = true
+noise = SubResource( 15 )
+
+[sub_resource type="ShaderMaterial" id=12]
+shader = ExtResource( 6 )
+shader_param/scroll1 = Vector2( 0.03, 0.3 )
+shader_param/scroll2 = Vector2( -0.3, 0.4 )
+shader_param/progress = 1.0
+shader_param/texture2 = SubResource( 16 )
+shader_param/colorTexture = SubResource( 14 )
+
+[sub_resource type="OpenSimplexNoise" id=10]
+
+[sub_resource type="NoiseTexture" id=9]
+width = 1100
+height = 1000
+seamless = true
+noise = SubResource( 10 )
+
 [node name="terraingen-debug" type="Node2D"]
 script = ExtResource( 3 )
 
@@ -55,6 +84,10 @@ texture = ExtResource( 4 )
 
 [node name="input" type="Node2D" parent="."]
 script = ExtResource( 5 )
+
+[node name="flames" type="Sprite" parent="."]
+material = SubResource( 12 )
+texture = SubResource( 9 )
 
 [node name="potato_sprout" parent="." instance=ExtResource( 2 )]
 

@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var round_end_curtain_effect = $flames.material
+onready var round_end_curtain_effect = $game_cam.get_node("flames").material
 onready var audio = $game_cam.get_node("audio")
 onready var input = $input
 
@@ -61,7 +61,7 @@ func end_round():
 	# play round end audio
 	audio.play("flames")
 	audio.play("death")
-	round_end_curtain_effect.set_shader_param("progress", 0.0)
+	round_end_curtain_effect.set_shader_param("progress", 1.0)
 	transition = true
 	transition_halfway = false
 	for player_number in range(len(players)):
@@ -157,7 +157,9 @@ func _process(delta):
 		if round_time_left < -TRANSITION_DURATION:
 			new_round()
 		else:
-			round_end_curtain_effect.set_shader_param("progress", -round_time_left / TRANSITION_DURATION)
+			var t = sin(lerp(0.0, 3.14, -round_time_left / TRANSITION_DURATION))
+			var progress = 1 - t
+			round_end_curtain_effect.set_shader_param("progress", progress)
 	elif round_time_left < 0:
 		if round_terrains.size() <= 5:
 			end_round()

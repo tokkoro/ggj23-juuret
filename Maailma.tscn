@@ -82,9 +82,9 @@ stream = ExtResource( 18 )
 [node name="lift" type="AudioStreamPlayer2D" parent="game_cam/audio"]
 stream = ExtResource( 11 )
 
+[node name="flames" parent="game_cam" instance=ExtResource( 3 )]
+z_index = 10
+
 [node name="sprout_owner" parent="." instance=ExtResource( 5 )]
 position = Vector2( 0, 1 )
 z_index = 5
-
-[node name="flames" parent="." instance=ExtResource( 3 )]
-z_index = 10

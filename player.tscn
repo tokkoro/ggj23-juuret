@@ -11,9 +11,11 @@ mode = 2
 script = ExtResource( 1 )
 
 [node name="GrenadeThrow" parent="." instance=ExtResource( 3 )]
+z_index = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 9 )
 
 [node name="Sprite" type="Sprite" parent="."]
+z_as_relative = false
 texture = ExtResource( 2 )

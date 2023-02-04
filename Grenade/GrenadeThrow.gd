@@ -6,6 +6,7 @@ onready var parent = get_node("..")
 
 var throw_force = 0.0
 var throw_held = false
+var throw_was_held = false
 var has_potato = false
 
 func pickup_potato():
@@ -28,18 +29,17 @@ func launch_potato(facing, force):
 	get_node("../..").add_child(bomb)
 
 func _process(delta):
-	if true:
-		return
-	throw_held = Input.is_action_pressed("throw")
-	if Input.is_action_just_pressed("throw"):
+	if throw_held and not throw_was_held:
 		pickup_potato()
 		if has_potato:
 			# loading sound effect start
 			pass
-	if Input.is_action_just_released("throw"):
+	if throw_was_held and not throw_held:
 		# loading sound effect stop
 		# throw sound effect
 		pass
+	throw_was_held = throw_held
+	
 
 func _physics_process(delta):
 	var facing = 1.0

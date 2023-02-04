@@ -13,7 +13,7 @@ var transition = false
 var transition_halfway = false
 
 const TRANSITION_DURATION = 5.0
-const ROUND_DURATION = 3.0
+const ROUND_DURATION = 10.0
 
 var players = []
 var player_spawn_points = [Vector2(0,-100), Vector2(100,-100), Vector2(300,-100), Vector2(400,-100)]
@@ -59,7 +59,7 @@ func _physics_process(delta):
 		if right:
 			x += 1.0
 		players[player_number].get_node("GrenadeThrow").throw_held = throw
-		players[player_number].add_central_force(Vector2(x * 100.0, 0))
+		players[player_number].apply_central_impulse(Vector2(x * 10.0, 0))
 
 func _process(delta):
 	round_time_left -= delta

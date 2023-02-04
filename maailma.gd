@@ -32,7 +32,7 @@ func new_round():
 		var player = preload("res://player.tscn").instance()
 		player.player_number = player_number
 		player.position = player_spawn_points[player_number]
-		
+		player.name = "player_" + str(player_number)
 		players.append(player)
 		add_child(player)
 	print("signal: round_start")
@@ -54,6 +54,12 @@ func _physics_process(delta):
 		var left = Input.is_action_pressed(input.get_input_string("player_left_", player_number))
 		var right = Input.is_action_pressed(input.get_input_string("player_right_", player_number))
 		var throw = Input.is_action_pressed(input.get_input_string("player_throw_", player_number))
+		if players[player_number].dead:
+			left = false
+			right = false
+			throw = false
+			players[player_number].get_node("Sprite").flip_v = true
+			
 		var x = 0.0
 		if left:
 			x += -1.0

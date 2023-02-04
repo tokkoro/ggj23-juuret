@@ -23,13 +23,13 @@ func _body_entered_asdf(node: PhysicsBody2D):
 		sprout_owner.sprouts.append(sprout)
 		print("Maa-istutun")
 		queue_free()
-	elif "Player" in node.get_name():
+	elif "player" in node.get_name():
 		if from_player == node and Time.get_ticks_msec() - spawn_time < 200:
 			print("Älä lyö sua!")
 			return
 		# kill audio
 		print("Pelaaja-kuale")
-		#aosdfiojajiopdsf
+		node.die()
 		queue_free()
 		
 		

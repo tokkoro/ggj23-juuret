@@ -8,12 +8,12 @@ var x_last_tick = 0.0
 var im_hit_no_collision_timer = Timer.new();
 
 func _ready():
-	print("p", player_number)
+	print("p ready", player_number)
 
 func _physics_process(delta):
 	pass
 	
 func die():
-	print("I'm die!")
+	print("I die!", player_number)
 	dead = true
 	apply_central_impulse(Vector2(rand_range(-30, 30), rand_range(-1500, -800)))

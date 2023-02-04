@@ -30,10 +30,21 @@ func new_round():
 	round_time_left = ROUND_DURATION
 	transition = false
 	round_end_curtain_effect.set_shader_param("progress", 1.0)
+	
+
+		
+	var terraingen = preload("res://terrain/terraingen-node.tscn").instance()
+	terraingen.name = "terraingen_round_" + str(round_index)
+	var round_pos_y_0 = round_index * terraingen.get_terrain_whole_height();
+	terraingen.position.y += round_pos_y_0
+	add_child(terraingen)
+	
+	$game_cam.start_move_to_next_round(terraingen)
+	
 	for player_number in range(4):
 		var player = preload("res://player.tscn").instance()
 		player.player_number = player_number
-		player.position = player_spawn_points[player_number]
+		player.position = Vector2(player_spawn_points[player_number].x, round_pos_y_0)
 
 		player.name = "player_" + str(player_number)
 
@@ -42,13 +53,6 @@ func new_round():
 		players.append(player)
 		add_child(player)
 		
-	var terraingen = preload("res://terrain/terraingen-node.tscn").instance()
-	terraingen.name = "terraingen_round_" + str(round_index)
-	terraingen.position.y += round_index * terraingen.get_terrain_whole_height()
-	add_child(terraingen)
-	
-	$game_cam.start_move_to_next_round(terraingen)
-	
 	print("signal: round_start")
 	emit_signal("round_start")
 

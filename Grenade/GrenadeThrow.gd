@@ -24,7 +24,6 @@ func launch_potato(facing, force):
 	bomb.from_player = parent
 	var x_force_multiplier = 100.0
 	var y_force_multiplier = 100.0
-	bomb.gravity_scale = 2
 	bomb.apply_central_impulse(Vector2(facing * (0.3 + force) * x_force_multiplier, -1 * (0.5 + force * 0.5) * y_force_multiplier))
 	get_node("../..").add_child(bomb)
 

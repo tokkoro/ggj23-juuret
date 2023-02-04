@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sprout.png-6aa988ff67f7950e27197eb623f6344a.stex"
+path="res://.import/sprout.png-f90cf0ff60784dade43de5f8f70088b2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprout/sprout.png"
-dest_files=[ "res://.import/sprout.png-6aa988ff67f7950e27197eb623f6344a.stex" ]
+source_file="res://Sprout/old/sprout.png"
+dest_files=[ "res://.import/sprout.png-f90cf0ff60784dade43de5f8f70088b2.stex" ]
 
 [params]
 

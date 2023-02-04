@@ -8,16 +8,6 @@
 
 config_version=4
 
-_global_script_classes=[ {
-"base": "Node2D",
-"class": "Terraingen",
-"language": "GDScript",
-"path": "res://terrain/terraingen.gd"
-} ]
-_global_script_class_icons={
-"Terraingen": ""
-}
-
 [application]
 
 config/name="Perunasota"

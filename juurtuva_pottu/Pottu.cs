@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class Pottu : Node2D
 {
+
+    public bool ripe;
     private Seed? seed;
     private Stem stem;
     private List<Root> roots = new List<Root>();
@@ -17,6 +19,8 @@ public class Pottu : Node2D
 
     private List<LateralStem> lateralStems = new List<LateralStem>();
 
+    private Vector2 groundHitPosition;
+    private Vector2 targetPos;
 
     // GFX childs:
     private StemGfx stemGfx;
@@ -29,11 +33,12 @@ public class Pottu : Node2D
     {
         // find children
         this.stemGfx = this.GetNode<StemGfx>("./Stem");
+        this.stemGfx.SetParameters(Vector2.Zero, Vector2.Zero, 1, Vector2.Zero, Vector2.Zero, 0);
         // test code
         this.Initalize();
         // this.totalTime = 1;
         this.UpdatePotato();
-        GD.Print("Tadaa pottu is _Ready");
+        GD.Print("Juurtuva pottu is _Ready " + this.Position);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -46,7 +51,17 @@ public class Pottu : Node2D
     public float DistanceToGround(Vector2 pos)
     {
         // returns negative when too high, so too negative, but positive when tool low
-        return pos.y - (-20);
+        float deep = groundHitPosition.y - targetPos.y;
+        // GD.Print("Syvyys " + deep);
+        return pos.y - (deep);
+    }
+
+    public void SetStartPosition(Vector2 position)
+    {
+        GD.Print("SetStartPosition " + position);
+
+        groundHitPosition = position;
+        targetPos = groundHitPosition + Vector2.Down * (15 + 10 * GD.Randf());
     }
 
     public void Initalize()
@@ -55,21 +70,17 @@ public class Pottu : Node2D
         this.seed = new Seed()
         {
             startTime = this.totalTime,
-            growStartDelay = 0.1f,
+            growStartDelay = 0.5f,
         };
 
         Vector2 stemStart = new Vector2((float)GD.RandRange(-5, 5), (float)GD.RandRange(-1, -5));
         Vector2 stemEnd = new Vector2((float)GD.RandRange(-10, 10), (float)GD.RandRange(-50, -70));
 
-        Vector2 ground = Vector2.Up;
-
-
         this.stem = new Stem()
         {
             growPointOffset = stemStart, //new Vector2(1, -3),
             targetHeadPosition = stemEnd,
-            // TODO: calculate accurate point for ground breaking
-            groundBreakingPoint = ground,
+            groundBreakingPoint = Vector2.Up,
             controlPoint0 = stemStart + new Vector2((float)GD.RandRange(-5, 5), (float)GD.RandRange(-20, -30)),
             controlPoint1 = stemEnd + new Vector2((float)GD.RandRange(-5, 5), (float)GD.RandRange(20, 30)),
         };
@@ -90,7 +101,7 @@ public class Pottu : Node2D
             {
                 maxLimit = midPoint;
             }
-            //GD.Print("Find ground max" + maxLimit + " min " + minLimit);
+            // GD.Print("Find ground max" + maxLimit + " min " + minLimit);
         }
 
         this.stem.groundBreakingPoint = CurveTools.CubicBezier(stemStart, stem.controlPoint0, stem.controlPoint1, stemEnd, minLimit);
@@ -103,8 +114,11 @@ public class Pottu : Node2D
         {
             return;
         }
+
         Seed seed = this.seed.Value;
         bool waitingForSeedToBeReady = this.totalTime < seed.startTime + seed.growStartDelay;
+        float t_down = Mathf.Clamp((this.totalTime - seed.startTime) / seed.growStartDelay, 0, 1);
+        this.Position = groundHitPosition.LinearInterpolate(this.targetPos, t_down);
         if (waitingForSeedToBeReady)
         {
             return;
@@ -112,7 +126,6 @@ public class Pottu : Node2D
         float t = Mathf.Clamp((this.totalTime - seed.startTime - seed.growStartDelay) / 10f, 0, 1);
 
         // TODO: grow seed
-        // TODO: update seed graphics
 
         // Stem
         // this.stem.headPoint = this.stem.growPointOffset.LinearInterpolate(this.stem.targetHeadPosition, t);
@@ -159,6 +172,11 @@ public class Pottu : Node2D
         {
             Stolon s = this.stolons[i];
             float s_t = Mathf.Clamp((this.totalTime - s.startTime) / s.duration, 0, 1);
+            if (s_t > 0.99f)
+            {
+                s.ripe = true;
+                this.stolons[i] = s;
+            }
             // Vector2 headPoint = s.growPointOffset.LinearInterpolate(s.targetHeadPosition, Mathf.Clamp(s_t / 0.9f, 0, 1));
             this.stolonGfxs[i].SetParameters(s.growPointOffset, s.targetHeadPosition, Mathf.Lerp(0.1f, 0.75f, s_t), Mathf.Clamp((s_t - 0.9f) / 0.1f, 0, 1), s.controlPoint0, s.controlPoint1, Mathf.Clamp(s_t / 0.9f, 0, 1));
         }
@@ -321,6 +339,7 @@ public struct Stolon
 
     public Vector2 controlPoint0;
     public Vector2 controlPoint1;
+    public bool ripe;
 
 }
 

@@ -15,13 +15,12 @@ func _body_entered_asdf(node: PhysicsBody2D):
 
 	if is_ground:
 		# istutu
-		var sprout = preload("res://Sprout/potato_sprout.tscn").instance()
-		sprout.position = position
+		var sprout = preload("res://juurtuva_pottu/Pottu.tscn").instance()
+		sprout.SetStartPosition(position);
 		sprout.ripe = preripened
 		var sprout_owner = get_node("../sprout_owner")
 		sprout_owner.add_child(sprout)
 		sprout_owner.sprouts.append(sprout)
-		print("Maa-istutun")
 		queue_free()
 	elif "player" in node.get_name():
 		if from_player == node and Time.get_ticks_msec() - spawn_time < 200:
@@ -31,5 +30,3 @@ func _body_entered_asdf(node: PhysicsBody2D):
 		print("Pelaaja-kuale")
 		node.die()
 		queue_free()
-		
-		

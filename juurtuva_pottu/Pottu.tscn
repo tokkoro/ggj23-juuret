@@ -1,9 +1,6 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://juurtuva_pottu/RootGfx.tscn" type="PackedScene" id=1]
 [ext_resource path="res://juurtuva_pottu/Pottu.cs" type="Script" id=2]
-[ext_resource path="res://juurtuva_pottu/LateralStemGfx.tscn" type="PackedScene" id=3]
-[ext_resource path="res://juurtuva_pottu/StolonGfx.tscn" type="PackedScene" id=4]
 [ext_resource path="res://juurtuva_pottu/StemGfx.cs" type="Script" id=5]
 [ext_resource path="res://juurtuva_pottu/Potato_vec.svg" type="Texture" id=6]
 
@@ -19,6 +16,7 @@ position = Vector2( 10, 200 )
 script = ExtResource( 2 )
 
 [node name="Debug_ground_pos" type="Line2D" parent="."]
+visible = false
 position = Vector2( 0, -20 )
 points = PoolVector2Array( -40, 0, 40, 0 )
 width = 1.0
@@ -44,10 +42,3 @@ visible = false
 points = PoolVector2Array( -5, 0, 5, 0 )
 width = 1.0
 default_color = Color( 0.984314, 0.533333, 0.133333, 1 )
-
-[node name="RootGfx" parent="." instance=ExtResource( 1 )]
-points = PoolVector2Array( -20, -21 )
-
-[node name="StolonGfx" parent="." instance=ExtResource( 4 )]
-
-[node name="LateralStem" parent="." instance=ExtResource( 3 )]

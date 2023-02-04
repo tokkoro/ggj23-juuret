@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Perunasota_Victory_Musa.wav-9be21d6ee781baa33cc3e5c31049f0b6.sample"
+
+[deps]
+
+source_file="res://bgm/Perunasota_Victory_Musa.wav"
+dest_files=[ "res://.import/Perunasota_Victory_Musa.wav-9be21d6ee781baa33cc3e5c31049f0b6.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

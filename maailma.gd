@@ -32,8 +32,11 @@ func new_round():
 		var player = preload("res://player.tscn").instance()
 		player.player_number = player_number
 		player.position = player_spawn_points[player_number]
+<<<<<<< Updated upstream
 		player.name = "player_" + str(player_number)
+=======
 		player.x_last_tick = player.position.x;
+>>>>>>> Stashed changes
 		players.append(player)
 		add_child(player)
 	print("signal: round_start")

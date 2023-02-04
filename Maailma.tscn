@@ -30,6 +30,8 @@ stream = ExtResource( 6 )
 stream = ExtResource( 7 )
 
 [node name="sprout_owner" parent="." instance=ExtResource( 5 )]
+position = Vector2( 0, 1 )
+z_index = 5
 
 [node name="flames" parent="." instance=ExtResource( 3 )]
 z_index = 10

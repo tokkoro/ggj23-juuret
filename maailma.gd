@@ -152,3 +152,6 @@ func end_game():
 	print("game over!")
 	game_running = false
 		
+func _input(event):
+	if Input.is_action_pressed("ui_cancel"):
+		get_tree().quit()

@@ -16,6 +16,7 @@ func _body_entered_asdf(node: PhysicsBody2D):
 
 	if is_ground:
 		# istutu
+		"""
 		var sprout = preload("res://juurtuva_pottu/Pottu.tscn").instance()
 		sprout.SetStartPosition(position);
 		sprout.ripe = preripened
@@ -23,6 +24,7 @@ func _body_entered_asdf(node: PhysicsBody2D):
 		sprout_owner.add_child(sprout)
 		sprout_owner.sprouts.append(sprout)
 		get_node("..").audio.play("thud")
+		"""
 		queue_free()
 	elif "player" in node.name:
 		if from_player == node and Time.get_ticks_msec() - spawn_time < 200:

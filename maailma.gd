@@ -19,34 +19,33 @@ const ROUND_DURATION = 8.0
 var players = []
 var player_spawn_points = [Vector2(0,-100), Vector2(100,-100), Vector2(300,-100), Vector2(400,-100)]
 var player_scores = [0,0,0,0]
-var round_index = -1;
+var round_terrains = []
 
 func is_game_paused():
 	if transition:
 		return true
 	return false
+	
+func new_terrain():
+	var round_index = round_terrains.size()
+	var terraingen = preload("res://terrain/terraingen-node.tscn").instance()
+	terraingen.name = "terraingen_round_" + str(round_index)
+	terraingen.position.y = round_index * terraingen.get_terrain_whole_height();
+	add_child(terraingen)
+	round_terrains.push_back(terraingen)
+	
+	$game_cam.start_move_to_next_round(terraingen, Time.get_ticks_msec() + TRANSITION_DURATION * 1000)
 
 func new_round():
-	round_index += 1
 	# play new round audio
 	round_time_left = ROUND_DURATION
 	transition = false
 	round_end_curtain_effect.set_shader_param("progress", 1.0)
 	
-
-		
-	var terraingen = preload("res://terrain/terraingen-node.tscn").instance()
-	terraingen.name = "terraingen_round_" + str(round_index)
-	var round_pos_y_0 = round_index * terraingen.get_terrain_whole_height();
-	terraingen.position.y += round_pos_y_0
-	add_child(terraingen)
-	
-	$game_cam.start_move_to_next_round(terraingen)
-	
 	for player_number in range(4):
 		var player = preload("res://player.tscn").instance()
 		player.player_number = player_number
-		player.position = Vector2(player_spawn_points[player_number].x, round_pos_y_0)
+		player.position = Vector2(player_spawn_points[player_number].x, round_terrains.back().position.y)
 
 		player.name = "player_" + str(player_number)
 
@@ -68,11 +67,14 @@ func end_round():
 	for player_number in range(len(players)):
 		players[player_number].die()
 		
+	new_terrain()
+	
 	print("signal: round_end")
 	emit_signal("round_end")
 
 func _ready():
 	player_scores = [0,0,0,0]
+	new_terrain()
 	new_round()
 
 func _physics_process(delta):
@@ -148,6 +150,7 @@ func _process(delta):
 				player_spawn_points[i].x = players[i].position.x
 				players[i].queue_free()
 			players.clear()
+			
 			print("singal: transition_halfway")
 			emit_signal("transition_halfway")
 		
@@ -156,7 +159,7 @@ func _process(delta):
 		else:
 			round_end_curtain_effect.set_shader_param("progress", -round_time_left / TRANSITION_DURATION)
 	elif round_time_left < 0:
-		if round_index < 5:
+		if round_terrains.size() <= 5:
 			end_round()
 		else:
 			end_game()

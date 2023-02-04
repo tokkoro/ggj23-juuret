@@ -10,6 +10,7 @@ var throw_force = 0.0
 var throw_held = false
 var throw_was_held = false
 var has_potato = false
+var flip = false
 
 func pickup_potato():
 	var is_potato_nearby = sprout_owner.try_pickup_sprout(global_position)
@@ -43,11 +44,10 @@ func _process(delta):
 		# throw sound effect
 		pass
 	throw_was_held = throw_held
-	
 
 func _physics_process(delta):
 	var facing = 1.0
-	if parent_sprite.flip_h:
+	if flip:
 		facing = -1.0
 	if not has_potato:
 		throw_force = 0.0

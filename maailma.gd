@@ -44,7 +44,7 @@ func new_round():
 	round_end_curtain_effect.set_shader_param("progress", 1.0)
 	
 	for player_number in range(4):
-		var player = preload("res://player.tscn").instance()
+		var player = preload("res://player/player.tscn").instance()
 		player.player_number = player_number
 		player.position = Vector2(player_spawn_points[player_number].x, round_terrains.back().position.y)
 
@@ -87,16 +87,18 @@ func _physics_process(delta):
 			left = false
 			right = false
 			throw = false
-			players[player_number].get_node("Sprite").flip_v = true
+			players[player_number].get_node("Sprite").rotation_degrees = 45
 			
 		var x = 0.0
 		var current_player = players[player_number];
 		if left:
 			x += -1.0
-			current_player.get_node("Sprite").flip_h = true
+			current_player.get_node("Sprite").rotation_degrees = 135
+			current_player.get_node("GrenadeThrow").flip = true
 		if right:
 			x += 1.0
-			current_player.get_node("Sprite").flip_h = false;
+			current_player.get_node("Sprite").rotation_degrees = -45
+			current_player.get_node("GrenadeThrow").flip = false
 			
 		current_player.get_node("GrenadeThrow").throw_held = throw
 		var y_impulse = 0

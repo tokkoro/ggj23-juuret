@@ -71,13 +71,13 @@ func _physics_process(delta):
 			current_player.get_node("Sprite").flip_h = true
 		if right:
 			x += 1.0
-			current_player.get_node("Sprite").flip_h = false
+			current_player.get_node("Sprite").flip_h = false;
 			
 		current_player.get_node("GrenadeThrow").throw_held = throw
 		var y_impulse = 0
 		var raycast_on_floor = current_player.get_node("FloorCast").is_colliding() 
 		if x != 0 && raycast_on_floor:
-			y_impulse = -50
+			y_impulse = -45
 		current_player.apply_central_impulse(Vector2(x * 30.0, y_impulse))
 	
 		#raycast to see if there is enemy in front that can be punched out of the way	
@@ -90,7 +90,7 @@ func _physics_process(delta):
 		if colliding_enemy:
 			var enemy = enemy_raycast.get_collider()
 			if(enemy.x_velocity < current_player.x_velocity):
-				enemy.apply_central_impulse(Vector2(0.0, -600.0))
+				enemy.apply_central_impulse(Vector2(x * 80, -600.0))
 				enemy.im_hit_no_collision_timer.connect("timeout",self,"reset_collision_mask")
 				enemy.im_hit_no_collision_timer.wait_time = 0.3
 				enemy.im_hit_no_collision_timer.one_shot = true
@@ -99,6 +99,7 @@ func _physics_process(delta):
 			
 		current_player.x_last_tick = current_player.position.x;
 		enemy_raycast.cast_to.x = x * 40;
+		current_player.get_node("FloorCast").cast_to.x = x * 35;
 			
 func reset_collision_mask(var enemy):
 	enemy.set_collision_layer_bit(3, true);

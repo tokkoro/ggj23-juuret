@@ -28,7 +28,7 @@ texture = ExtResource( 2 )
 [node name="FloorCast" type="RayCast2D" parent="."]
 position = Vector2( -1, 0 )
 enabled = true
-cast_to = Vector2( 0, 35 )
+cast_to = Vector2( 35, 44 )
 
 [node name="EnemyCast" type="RayCast2D" parent="."]
 enabled = true

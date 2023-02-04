@@ -33,6 +33,7 @@ func new_round():
 		player.player_number = player_number
 		player.position = player_spawn_points[player_number]
 		player.name = "player_" + str(player_number)
+		player.x_last_tick = player.position.x;
 		players.append(player)
 		add_child(player)
 	print("signal: round_start")
@@ -61,19 +62,43 @@ func _physics_process(delta):
 			players[player_number].get_node("Sprite").flip_v = true
 			
 		var x = 0.0
+		var current_player = players[player_number];
 		if left:
 			x += -1.0
-			players[player_number].get_node("Sprite").flip_h = true
+			current_player.get_node("Sprite").flip_h = true
 		if right:
 			x += 1.0
-			players[player_number].get_node("Sprite").flip_h = false
+			current_player.get_node("Sprite").flip_h = false
 			
-		players[player_number].get_node("GrenadeThrow").throw_held = throw
+		current_player.get_node("GrenadeThrow").throw_held = throw
 		var y_impulse = 0
-		var raycast_on_floor = players[player_number].get_node("FloorCast").is_colliding() 
+		var raycast_on_floor = current_player.get_node("FloorCast").is_colliding() 
 		if x != 0 && raycast_on_floor:
 			y_impulse = -50
-		players[player_number].apply_central_impulse(Vector2(x * 30.0, y_impulse))
+		current_player.apply_central_impulse(Vector2(x * 30.0, y_impulse))
+	
+		#raycast to see if there is enemy in front that can be punched out of the way	
+		var enemy_raycast = current_player.get_node("EnemyCast");
+		var colliding_enemy = enemy_raycast.is_colliding();
+		
+		var diff = current_player.position.x - current_player.x_last_tick;
+		current_player.x_velocity = sqrt(diff*diff)
+		
+		if colliding_enemy:
+			var enemy = enemy_raycast.get_collider()
+			if(enemy.x_velocity < current_player.x_velocity):
+				enemy.apply_central_impulse(Vector2(0.0, -600.0))
+				enemy.im_hit_no_collision_timer.connect("timeout",self,"reset_collision_mask")
+				enemy.im_hit_no_collision_timer.wait_time = 0.3
+				enemy.im_hit_no_collision_timer.one_shot = true
+				enemy.im_hit_no_collision_timer.start()
+				enemy.set_collision_layer_bit(3, false) 
+			
+		current_player.x_last_tick = current_player.position.x;
+		enemy_raycast.cast_to.x = x * 40;
+			
+func reset_collision_mask(var enemy):
+	enemy.set_collision_layer_bit(3, true);
 
 func _process(delta):
 	round_time_left -= delta

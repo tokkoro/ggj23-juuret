@@ -36,3 +36,8 @@ func _body_entered_asdf(node: PhysicsBody2D):
 		else:
 			print("This pottu was not from anyone")
 		queue_free()
+	else:
+		if position.x < 0:
+			linear_velocity.x = rand_range(100, 400)
+		else:
+			linear_velocity.x = -rand_range(100, 400)

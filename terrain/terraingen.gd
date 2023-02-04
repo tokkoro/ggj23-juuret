@@ -7,12 +7,43 @@ var ground_far_color: Color = Color.brown.linear_interpolate(Color.black, 0.75);
 # var b = "text"
 
 func generate_terrain():
-	genterrain(1280, 500, 150, rand_range(0, 1e16));
+	var terrain_old = get_node_or_null("terrain")
+	if terrain_old:
+		print("Remove old terrain")
+		terrain_old.name = "terrain_old" # Has to be renamed to avoid having two "terrain" nodes at the same time
+		terrain_old.queue_free()
+	
+	print("Generate new terrain root")
+	
+	var ground_width = 1280
+	var ground_offset = 150
+	var ground_height = 500
+	
+	var terrain_node = Node2D.new()
+	terrain_node.name = "terrain"
+
+	genterrain(
+		terrain_node,
+		ground_width,
+		ground_height,
+		ground_offset,
+		rand_range(0, 1e16)
+	)
+	
+	genterrain(
+		terrain_node,
+		ground_width,
+		-ground_height,
+		-ground_offset,
+		rand_range(0, 1e16)
+	)
+	
+	add_child(terrain_node)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
-	var maailma = find_parent("terraingen-debug")
+	var maailma = find_parent("Maailma")
 	if maailma:
 		print("Connecting terrain generation to transition_halfway signal")
 		maailma.connect("transition_halfway", self, "generate_terrain")
@@ -29,7 +60,7 @@ class GroundPoint:
 	var color: Color
 
 
-func genterrain(width: float, height: float, offset: float, seed_v: float):
+func genterrain(root: Node2D, width: float, height: float, offset: float, seed_v: float):
 	print("Generate terrain!");
 	
 	var sc: float = 100;
@@ -103,12 +134,19 @@ func genterrain(width: float, height: float, offset: float, seed_v: float):
 	var arr_mesh = ArrayMesh.new()
 	arr_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrs)
 	
-	get_node("terrain_mesh").mesh = arr_mesh
+	var mesh_node = MeshInstance2D.new()
+	mesh_node.mesh = arr_mesh
+	root.add_child(mesh_node)
 	
 	var col = PoolVector2Array();
 	for gp in ground_points:
 		col.append(gp.p);
 	col.append(Vector2(ground_points.back().p.x, offset + height));
 	col.append(Vector2(ground_points.front().p.x, offset + height));
-	get_node("terrain_body/poly").polygon = col;
+	var body = StaticBody2D.new();
+	body.set_collision_mask_bit(10, true)
+	var body_shape = CollisionPolygon2D.new();
+	body_shape.polygon = col;
+	body.add_child(body_shape)
+	root.add_child(body)
 	

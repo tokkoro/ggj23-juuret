@@ -95,7 +95,7 @@ func genterrain(root: Node2D, width: float, height: float, offset: float, seed_v
 	print("Generate terrain!");
 	
 	var division_count = 129;
-	var wave_h: float = 100;
+	var wave_h: float = 150;
 	var wave_f_arr = [];
 	var rand_h = 0;
 	var rand_gen = RandomNumberGenerator.new()
@@ -111,7 +111,7 @@ func genterrain(root: Node2D, width: float, height: float, offset: float, seed_v
 		
 		var h = 0;
 		for wave_f in wave_f_arr:
-			h += sin(wave_f * PI * t) * wave_h / wave_f_arr.size()
+			h += sin(wave_f * PI * t + float(i) / division_count) * wave_h / wave_f_arr.size()
 			
 		gp.p = Vector2(
 			t * width - width / 2, # center around node origin

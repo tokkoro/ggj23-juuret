@@ -24,11 +24,10 @@ func start_move_to_next_round(terraingen: Terraingen, arrive_time: float):
 	print("Now: ", t_0, "; arri: ", arrive_time, "; diff ", arrive_time - t_0)
 	pass
 
-func transition(delta: float):
+func transition(delta: float, time_now: float):
 	if target_terraingen == null:
 		return
-	
-	var time_now = Time.get_ticks_usec() / 1000000.0
+
 	var t = (time_now - t_0) / (t_arrive - t_0)
 	var d = transition_curve.interpolate(t);
 	
@@ -37,6 +36,9 @@ func transition(delta: float):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float):
-	transition(delta)
+	var time_now = Time.get_ticks_usec() / 1000000.0
+	
+	transition(delta, time_now)
+	rotation = sin(time_now / 4.0) * PI / 128.0
 	
 	# rotation = randf() * PI

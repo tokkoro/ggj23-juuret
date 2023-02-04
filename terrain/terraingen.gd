@@ -32,7 +32,8 @@ func generate_terrain():
 		ground_width,
 		ground_height,
 		ground_offset,
-		rand_range(0, 1e16)
+		rand_range(0, 1e16),
+		true
 	)
 	
 	genterrain(
@@ -40,7 +41,8 @@ func generate_terrain():
 		ground_width,
 		-ground_height,
 		-ground_offset,
-		rand_range(0, 1e16)
+		rand_range(0, 1e16),
+		false
 	)
 	
 	add_child(terrain_node)
@@ -74,7 +76,7 @@ class GroundPoint:
 	var color: Color
 
 
-func genterrain(root: Node2D, width: float, height: float, offset: float, seed_v: float):
+func genterrain(root: Node2D, width: float, height: float, offset: float, seed_v: float, add_collision:bool):
 	print("Generate terrain!");
 	
 	var sc: float = 100;
@@ -159,8 +161,9 @@ func genterrain(root: Node2D, width: float, height: float, offset: float, seed_v
 	col.append(Vector2(ground_points.front().p.x, offset + height));
 	var body = StaticBody2D.new();
 	body.set_collision_mask_bit(10, true)
-	var body_shape = CollisionPolygon2D.new();
-	body_shape.polygon = col;
-	body.add_child(body_shape)
+	if add_collision:
+		var body_shape = CollisionPolygon2D.new();
+		body_shape.polygon = col;
+		body.add_child(body_shape)
 	root.add_child(body)
 	

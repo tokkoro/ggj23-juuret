@@ -43,7 +43,7 @@ func generate_terrain():
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
-	var maailma = find_parent("terraingen-debug")
+	var maailma = find_parent("Maailma")
 	if maailma:
 		print("Connecting terrain generation to transition_halfway signal")
 		maailma.connect("transition_halfway", self, "generate_terrain")
@@ -144,6 +144,7 @@ func genterrain(root: Node2D, width: float, height: float, offset: float, seed_v
 	col.append(Vector2(ground_points.back().p.x, offset + height));
 	col.append(Vector2(ground_points.front().p.x, offset + height));
 	var body = StaticBody2D.new();
+	body.set_collision_mask_bit(10, true)
 	var body_shape = CollisionPolygon2D.new();
 	body_shape.polygon = col;
 	body.add_child(body_shape)

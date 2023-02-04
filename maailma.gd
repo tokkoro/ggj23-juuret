@@ -123,6 +123,9 @@ func reset_collision_mask(var enemy):
 	enemy.set_collision_layer_bit(3, true);
 
 func _process(delta):
+	if Input.is_action_just_pressed("toggle_fullscreen"):
+		OS.window_fullscreen = !OS.window_fullscreen
+		
 	if not game_running:
 		return
 	if round_time_left >= ROUND_DURATION and not audio.bgm.playing:

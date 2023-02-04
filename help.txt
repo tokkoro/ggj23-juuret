@@ -1,0 +1,5 @@
+ 
+
+ Controls:
+ 	ESC - Quit game
+ 	F - toggle full screen, alternative alt+enter

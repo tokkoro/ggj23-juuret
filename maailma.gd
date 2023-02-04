@@ -168,7 +168,7 @@ func _process(delta):
 			var progress = 1 - t
 			round_end_curtain_effect.set_shader_param("progress", progress)
 	elif round_time_left < 0:
-		if round_terrains.size() <= 5:
+		if round_terrains.size() <= 11:
 			end_round()
 		else:
 			end_game()

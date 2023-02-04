@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://game_cam.gd" type="Script" id=1]
 [ext_resource path="res://maailma.gd" type="Script" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://input.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Sprout/sprout_owner.tscn" type="PackedScene" id=5]
 [ext_resource path="res://bgm/Perunasota_Taustamusiikki.wav" type="AudioStream" id=6]
+[ext_resource path="res://bgm/Perunasota_Victory_Musa.wav" type="AudioStream" id=7]
+[ext_resource path="res://audio.gd" type="Script" id=8]
 
 [node name="Maailma" type="Node2D"]
 script = ExtResource( 2 )
@@ -18,10 +20,16 @@ script = ExtResource( 2 )
 current = true
 script = ExtResource( 1 )
 
+[node name="audio" type="Node2D" parent="game_cam"]
+script = ExtResource( 8 )
+
+[node name="bgm" type="AudioStreamPlayer2D" parent="game_cam/audio"]
+stream = ExtResource( 6 )
+
+[node name="victory_musa" type="AudioStreamPlayer2D" parent="game_cam/audio"]
+stream = ExtResource( 7 )
+
 [node name="sprout_owner" parent="." instance=ExtResource( 5 )]
 
 [node name="flames" parent="." instance=ExtResource( 3 )]
 z_index = 10
-
-[node name="bgm" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 6 )

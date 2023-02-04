@@ -1,7 +1,7 @@
 extends Node2D
 
 onready var round_end_curtain_effect = $flames.material
-
+onready var audio = $game_cam.get_node("audio")
 onready var input = $input
 
 signal round_start
@@ -64,7 +64,6 @@ func end_round():
 	emit_signal("round_end")
 
 func _ready():
-	$bgm.play()
 	new_round()
 
 func _physics_process(delta):
@@ -119,6 +118,8 @@ func reset_collision_mask(var enemy):
 	enemy.set_collision_layer_bit(3, true);
 
 func _process(delta):
+	if round_time_left >= ROUND_DURATION and not audio.bgm.playing:
+		audio.bgm.play()
 	round_time_left -= delta
 	if transition:
 		if not transition_halfway && round_time_left < -TRANSITION_DURATION * 0.5:
@@ -135,5 +136,11 @@ func _process(delta):
 		else:
 			round_end_curtain_effect.set_shader_param("progress", -round_time_left / TRANSITION_DURATION)
 	elif round_time_left < 0:
-		end_round()
+		if round_index < 5:
+			end_round()
+		else:
+			end_game()
+
+func end_game():
+	print("game over!")
 		

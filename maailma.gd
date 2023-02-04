@@ -56,14 +56,13 @@ func _physics_process(delta):
 		var x = 0.0
 		if left:
 			x += -1.0
+			players[player_number].get_node("Sprite").flip_h = true
 		if right:
 			x += 1.0
+			players[player_number].get_node("Sprite").flip_h = false
+			
 		players[player_number].get_node("GrenadeThrow").throw_held = throw
 		players[player_number].apply_central_impulse(Vector2(x * 10.0, 0))
-		if left:
-			players[player_number].get_node("Sprite").flip_h = true
-		elif right:
-			players[player_number].get_node("Sprite").flip_h = false
 
 func _process(delta):
 	round_time_left -= delta

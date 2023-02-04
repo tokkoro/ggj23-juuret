@@ -7,15 +7,12 @@
 
 [sub_resource type="CapsuleShape2D" id=9]
 
-[sub_resource type="StreamTexture" id=10]
-flags = 4
-load_path = "res://.import/player_vec.svg-3963d6b99fd16f182cc807797e8291b6.stex"
-
 [node name="player" type="RigidBody2D"]
 collision_layer = 5
 mode = 2
 gravity_scale = 16.56
 continuous_cd = 1
+can_sleep = false
 linear_damp = 5.0
 angular_damp = 1.0
 script = ExtResource( 2 )
@@ -31,7 +28,7 @@ shape = SubResource( 9 )
 rotation = -0.785398
 scale = Vector2( 0.08, 0.08 )
 z_as_relative = false
-texture = SubResource( 10 )
+texture = ExtResource( 3 )
 
 [node name="FloorCast" type="RayCast2D" parent="."]
 position = Vector2( -1, 0 )

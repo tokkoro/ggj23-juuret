@@ -4,8 +4,6 @@ using System.Collections.Generic;
 
 public class Pottu : Node2D
 {
-
-    public bool ripe;
     private Seed? seed;
     private Stem stem;
     private List<Root> roots = new List<Root>();
@@ -53,7 +51,7 @@ public class Pottu : Node2D
         // returns negative when too high, so too negative, but positive when tool low
         float deep = groundHitPosition.y - targetPos.y;
         // GD.Print("Syvyys " + deep);
-        return pos.y - (deep);
+        return pos.y - (deep + 7); // 7 is bias to lower the ground point a bit as it's more desired
     }
 
     public void SetStartPosition(Vector2 position)
@@ -61,7 +59,7 @@ public class Pottu : Node2D
         GD.Print("SetStartPosition " + position);
 
         groundHitPosition = position;
-        targetPos = groundHitPosition + Vector2.Down * (15 + 10 * GD.Randf());
+        targetPos = groundHitPosition + Vector2.Down * (25 + 10 * GD.Randf());
     }
 
     public void Initalize()
@@ -74,7 +72,7 @@ public class Pottu : Node2D
         };
 
         Vector2 stemStart = new Vector2((float)GD.RandRange(-5, 5), (float)GD.RandRange(-1, -5));
-        Vector2 stemEnd = new Vector2((float)GD.RandRange(-10, 10), (float)GD.RandRange(-50, -70));
+        Vector2 stemEnd = new Vector2((float)GD.RandRange(-10, 10), (float)GD.RandRange(-70, -90));
 
         this.stem = new Stem()
         {
@@ -281,6 +279,20 @@ public class Pottu : Node2D
     {
         float t = stemIndex / (float)GD.RandRange(10f, 13f);
         return this.stem.groundBreakingPoint.LinearInterpolate(this.stem.targetHeadPosition, t);
+    }
+
+    public Vector2[] GetRipePositions()
+    {
+        List<Vector2> result = new List<Vector2>();
+        foreach (var stolon in this.stolons)
+        {
+            if (stolon.ripe)
+            {
+                result.Add(stolon.targetHeadPosition);
+            }
+        }
+
+        return result.ToArray();
     }
 }
 

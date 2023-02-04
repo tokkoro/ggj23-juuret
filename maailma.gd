@@ -12,6 +12,7 @@ var round_time_left = 10.0
 var transition = false
 var transition_halfway = false
 var game_running = true
+var wait_for_first_sprout = true
 
 const TRANSITION_DURATION = 2.0
 const ROUND_DURATION = 8.0
@@ -142,7 +143,8 @@ func _process(delta):
 		return
 	if round_time_left >= ROUND_DURATION and not audio.bgm.playing:
 		audio.bgm.play()
-	round_time_left -= delta
+	if not wait_for_first_sprout:
+		round_time_left -= delta
 	if transition:
 		if not transition_halfway && round_time_left < -TRANSITION_DURATION * 0.5:
 			transition_halfway = true
@@ -150,7 +152,10 @@ func _process(delta):
 				player_spawn_points[i].x = players[i].position.x
 				players[i].queue_free()
 			players.clear()
-			
+			# free potatoes
+			for t in round_terrains:
+				if t != round_terrains.back():
+					t.stop_colliding()
 			print("singal: transition_halfway")
 			emit_signal("transition_halfway")
 		

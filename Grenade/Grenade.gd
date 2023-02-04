@@ -3,7 +3,6 @@ extends RigidBody2D
 var from_player = null
 var from_player_number = 0
 var spawn_time = 0
-var preripened = false
 
 func _ready():
 	contact_monitor = true
@@ -13,18 +12,17 @@ func _ready():
 
 func _body_entered_asdf(node: PhysicsBody2D):
 	var is_ground = node.get_collision_mask_bit(10)
-
+	if not is_instance_valid(from_player):
+		return
 	if is_ground:
 		# istutu
-		"""
 		var sprout = preload("res://juurtuva_pottu/Pottu.tscn").instance()
 		sprout.SetStartPosition(position);
-		sprout.ripe = preripened
 		var sprout_owner = get_node("../sprout_owner")
 		sprout_owner.add_child(sprout)
 		sprout_owner.sprouts.append(sprout)
 		get_node("..").audio.play("thud")
-		"""
+		get_node('..').wait_for_first_sprout = false
 		queue_free()
 	elif "player" in node.name:
 		if from_player == node and Time.get_ticks_msec() - spawn_time < 200:

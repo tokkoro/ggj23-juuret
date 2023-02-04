@@ -10,6 +10,7 @@
 collision_layer = 5
 mode = 2
 gravity_scale = 16.56
+continuous_cd = 1
 linear_damp = 5.0
 angular_damp = 1.0
 script = ExtResource( 1 )

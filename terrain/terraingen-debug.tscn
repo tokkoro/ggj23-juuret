@@ -5,6 +5,7 @@
 [ext_resource path="res://maailma.gd" type="Script" id=3]
 [ext_resource path="res://icon.png" type="Texture" id=4]
 [ext_resource path="res://input.gd" type="Script" id=5]
+[ext_resource path="res://flame_shader.tres" type="Shader" id=6]
 
 [sub_resource type="Shader" id=5]
 code = "shader_type canvas_item;
@@ -48,35 +49,6 @@ void vertex() {
 shader = SubResource( 7 )
 shader_param/progress = 0.0
 
-[sub_resource type="Shader" id=11]
-code = "shader_type canvas_item;
-uniform vec2 scroll1 = vec2(0.1, 0.1);
-uniform vec2 scroll2 = vec2(0.2, 0.2);
-uniform sampler2D texture2;
-uniform sampler2D colorTexture;
-uniform float progress = 1.0;
-
-void fragment() {
-	//Fire 1
-	vec4 fireTexture1 = texture(TEXTURE, UV + scroll1 * TIME);
-	float fireTextureColor1 = fireTexture1.r;
-	
-	//Fire 2 
-	vec4 fireTexture2 = texture(texture2, UV + scroll2 * TIME);
-	float fireTextureColor2 = fireTexture2.r;
-	
-	//Combination
-	float energy = fireTextureColor1 * fireTextureColor2 - (1.0 - UV.y) * 0.3;
-	vec4 color = texture(colorTexture, vec2(energy));
-	color.a *= 1.0 - progress;
-	COLOR = color;
-}
-
-void vertex() {
-	VERTEX += vec2(0.0, 50.0);
-	VERTEX += vec2(0.0, sin(TIME * 2.0)*200.0);
-}"
-
 [sub_resource type="Gradient" id=13]
 offsets = PoolRealArray( 0.0949153, 0.137288, 0.19322, 0.274576, 0.550847, 0.988136 )
 colors = PoolColorArray( 0, 0, 0, 0, 0, 0, 0, 0.979102, 1, 0, 0, 0.981823, 1, 0.632812, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0.443137 )
@@ -91,7 +63,7 @@ seamless = true
 noise = SubResource( 15 )
 
 [sub_resource type="ShaderMaterial" id=12]
-shader = SubResource( 11 )
+shader = ExtResource( 6 )
 shader_param/scroll1 = Vector2( 0.03, 0.3 )
 shader_param/scroll2 = Vector2( -0.3, 0.4 )
 shader_param/progress = 1.0

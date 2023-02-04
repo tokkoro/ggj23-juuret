@@ -47,6 +47,9 @@ func end_round():
 	round_end_curtain_effect.set_shader_param("progress", 0.0)
 	transition = true
 	transition_halfway = false
+	for player_number in range(len(players)):
+		players[player_number].die()
+		
 	print("signal: round_end")
 	emit_signal("round_end")
 

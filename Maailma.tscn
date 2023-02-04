@@ -19,3 +19,4 @@ current = true
 [node name="sprout_owner" parent="." instance=ExtResource( 5 )]
 
 [node name="flames" parent="." instance=ExtResource( 3 )]
+z_index = 10

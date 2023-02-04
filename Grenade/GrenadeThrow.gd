@@ -24,7 +24,7 @@ func launch_potato(facing, force):
 	bomb.from_player = parent
 	var x_force_multiplier = 100.0
 	var y_force_multiplier = 100.0
-	bomb.apply_central_impulse(Vector2(facing * (0.3 + force) * x_force_multiplier, -1 * (0.5 + force * 0.5) * y_force_multiplier))
+	bomb.apply_central_impulse(Vector2(facing * (0.3 + force) * x_force_multiplier, -1 * (0.7 + force * 0.5) * y_force_multiplier))
 	get_node("../..").add_child(bomb)
 
 func _process(delta):
@@ -47,7 +47,7 @@ func _physics_process(delta):
 	if not has_potato:
 		throw_force = 0.0
 	elif throw_held:
-		throw_force += delta
+		throw_force += delta * 10
 	elif throw_force > 0:
 		launch_potato(facing, throw_force)
 		throw_force = 0
@@ -58,4 +58,4 @@ func _physics_process(delta):
 	if throw_force <= 0:
 		sprite.scale.x = 0
 	else:
-		sprite.scale.x = throw_force
+		sprite.scale.x = throw_force * 0.3

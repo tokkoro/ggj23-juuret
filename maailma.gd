@@ -12,8 +12,8 @@ var round_time_left = 10.0
 var transition = false
 var transition_halfway = false
 
-const TRANSITION_DURATION = 5.0
-const ROUND_DURATION = 10.0
+const TRANSITION_DURATION = 2.0
+const ROUND_DURATION = 8.0
 
 var players = []
 var player_spawn_points = [Vector2(0,-100), Vector2(100,-100), Vector2(300,-100), Vector2(400,-100)]
@@ -64,6 +64,7 @@ func end_round():
 	emit_signal("round_end")
 
 func _ready():
+	$bgm.play()
 	new_round()
 
 func _physics_process(delta):

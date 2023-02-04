@@ -28,6 +28,8 @@ func launch_potato(facing, force):
 	get_node("../..").add_child(bomb)
 
 func _process(delta):
+	if true:
+		return
 	throw_held = Input.is_action_pressed("throw")
 	if Input.is_action_just_pressed("throw"):
 		pickup_potato()

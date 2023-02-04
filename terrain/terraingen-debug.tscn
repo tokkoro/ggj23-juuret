@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://terrain/terraingen-node.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Grenade/GrenadeThrow.tscn" type="PackedScene" id=2]
@@ -48,6 +48,64 @@ void vertex() {
 shader = SubResource( 7 )
 shader_param/progress = 0.0
 
+[sub_resource type="Shader" id=11]
+code = "shader_type canvas_item;
+uniform vec2 scroll1 = vec2(0.1, 0.1);
+uniform vec2 scroll2 = vec2(0.2, 0.2);
+uniform sampler2D texture2;
+uniform sampler2D colorTexture;
+uniform float progress = 1.0;
+
+void fragment() {
+	//Fire 1
+	vec4 fireTexture1 = texture(TEXTURE, UV + scroll1 * TIME);
+	float fireTextureColor1 = fireTexture1.r;
+	
+	//Fire 2 
+	vec4 fireTexture2 = texture(texture2, UV + scroll2 * TIME);
+	float fireTextureColor2 = fireTexture2.r;
+	
+	//Combination
+	float energy = fireTextureColor1 * fireTextureColor2 - (1.0 - UV.y) * 0.3;
+	vec4 color = texture(colorTexture, vec2(energy));
+	color.a *= 1.0 - progress;
+	COLOR = color;
+}
+
+void vertex() {
+	VERTEX += vec2(0.0, 50.0);
+	VERTEX += vec2(0.0, sin(TIME * 2.0)*200.0);
+}"
+
+[sub_resource type="Gradient" id=13]
+offsets = PoolRealArray( 0.0949153, 0.137288, 0.19322, 0.274576, 0.550847, 0.988136 )
+colors = PoolColorArray( 0, 0, 0, 0, 0, 0, 0, 0.979102, 1, 0, 0, 0.981823, 1, 0.632812, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0.443137 )
+
+[sub_resource type="GradientTexture" id=14]
+gradient = SubResource( 13 )
+
+[sub_resource type="OpenSimplexNoise" id=15]
+
+[sub_resource type="NoiseTexture" id=16]
+seamless = true
+noise = SubResource( 15 )
+
+[sub_resource type="ShaderMaterial" id=12]
+shader = SubResource( 11 )
+shader_param/scroll1 = Vector2( 0.03, 0.3 )
+shader_param/scroll2 = Vector2( -0.3, 0.4 )
+shader_param/progress = 1.0
+shader_param/texture2 = SubResource( 16 )
+shader_param/colorTexture = SubResource( 14 )
+
+[sub_resource type="OpenSimplexNoise" id=10]
+
+[sub_resource type="NoiseTexture" id=9]
+width = 1100
+height = 1000
+seamless = true
+noise = SubResource( 10 )
+
 [node name="terraingen-debug" type="Node2D"]
 script = ExtResource( 3 )
 
@@ -78,3 +136,7 @@ texture = ExtResource( 4 )
 
 [node name="input" type="Node2D" parent="."]
 script = ExtResource( 5 )
+
+[node name="flames" type="Sprite" parent="."]
+material = SubResource( 12 )
+texture = SubResource( 9 )

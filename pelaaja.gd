@@ -9,6 +9,14 @@ var im_hit_no_collision_timer = Timer.new();
 
 func _ready():
 	print("p ready", player_number)
+	if player_number == 0:
+		$Sprite.modulate = Color(1.0, 0.5, 0.5)
+	elif player_number == 1:
+		$Sprite.modulate = Color(0.5, 1.0, 0.5)
+	elif player_number == 2:
+		$Sprite.modulate = Color(0.5, 0.5, 1.0)
+	else:
+		$Sprite.modulate = Color(0.9, 0.9, 0.5)
 
 func _physics_process(delta):
 	pass

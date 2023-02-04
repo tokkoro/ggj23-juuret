@@ -18,6 +18,7 @@ const ROUND_DURATION = 8.0
 
 var players = []
 var player_spawn_points = [Vector2(0,-100), Vector2(100,-100), Vector2(300,-100), Vector2(400,-100)]
+var player_scores = [0,0,0,0]
 var round_index = -1;
 
 func is_game_paused():
@@ -59,6 +60,8 @@ func new_round():
 
 func end_round():
 	# play round end audio
+	audio.play("flames")
+	audio.play("death")
 	round_end_curtain_effect.set_shader_param("progress", 0.0)
 	transition = true
 	transition_halfway = false
@@ -69,6 +72,7 @@ func end_round():
 	emit_signal("round_end")
 
 func _ready():
+	player_scores = [0,0,0,0]
 	new_round()
 
 func _physics_process(delta):
@@ -118,7 +122,13 @@ func _physics_process(delta):
 		current_player.x_last_tick = current_player.position.x;
 		enemy_raycast.cast_to.x = x * 40;
 		current_player.get_node("FloorCast").cast_to.x = x * 35;
-			
+
+
+func score(player_number):
+	player_scores[player_number] += 1
+	audio.play("death")
+	audio.play("thud")
+
 func reset_collision_mask(var enemy):
 	enemy.set_collision_layer_bit(3, true);
 

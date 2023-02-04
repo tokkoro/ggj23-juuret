@@ -45,6 +45,9 @@ func generate_terrain():
 		false
 	)
 	
+	gen_side_body(terrain_node, ground_width, (ground_height + ground_offset) * 2.0, 1)
+	gen_side_body(terrain_node, ground_width, (ground_height + ground_offset) * 2.0, -1)
+	
 	add_child(terrain_node)
 
 func stop_colliding():
@@ -75,13 +78,23 @@ class GroundPoint:
 	var p: Vector2
 	var color: Color
 
+func gen_side_body(root: Node2D, width: float, height: float, dir: float):
+	var rect_ext_w = 100;
+	var rect = RectangleShape2D.new()
+	rect.set_extents(Vector2(rect_ext_w, height / 2.0))
+	
+	var body = StaticBody2D.new()
+	var shape = CollisionShape2D.new()
+	body.add_child(shape)
+	shape.shape = rect
+	shape.position = Vector2(width / 2.0 + rect_ext_w, 0) * dir
+
+	root.add_child(body);
 
 func genterrain(root: Node2D, width: float, height: float, offset: float, seed_v: float, add_collision:bool):
 	print("Generate terrain!");
 	
-	var sc: float = 100;
-	var division_count = 128;
-	
+	var division_count = 129;
 	var wave_h: float = 100;
 	var wave_f_arr = [];
 	var rand_h = 0;
@@ -91,7 +104,7 @@ func genterrain(root: Node2D, width: float, height: float, offset: float, seed_v
 		wave_f_arr.push_back(rand_gen.randf() * rand_range(4, 30));
 	
 	var ground_points = [];
-	for i in range(0, division_count):
+	for i in range(0, division_count + 1):
 		var i_f = float(i);
 		var t: float = i_f / division_count;
 		var gp = GroundPoint.new();
@@ -111,7 +124,7 @@ func genterrain(root: Node2D, width: float, height: float, offset: float, seed_v
 	
 	var verts = PoolVector2Array()
 	var colors = PoolColorArray()
-	for i in range(1, ground_points.size() - 1):
+	for i in range(1, ground_points.size()):
 		var i_a = i - 1;
 		var i_b = i;
 		

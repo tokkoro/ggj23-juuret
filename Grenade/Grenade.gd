@@ -9,6 +9,11 @@ func _ready():
 	contacts_reported = 5
 	connect("body_entered", self, "_body_entered_asdf")
 	spawn_time = Time.get_ticks_msec()
+	print("potaattis")
+
+func _process(delta):
+	print(get_parent())
+	print(global_position)
 
 func _body_entered_asdf(node: PhysicsBody2D):
 	var is_ground = node.get_collision_mask_bit(10)

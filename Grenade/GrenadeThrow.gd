@@ -3,6 +3,7 @@ extends Node2D
 onready var sprite = $Sprite
 onready var parent_sprite = get_node("../Sprite")
 onready var parent = get_node("..")
+onready var sprout_owner = get_node("../../sprout_owner")
 
 var throw_force = 0.0
 var throw_held = false
@@ -10,7 +11,7 @@ var throw_was_held = false
 var has_potato = false
 
 func pickup_potato():
-	var is_potato_nearby = int(Time.get_ticks_msec()) % 2000 < 1000 # TODO: Implement
+	var is_potato_nearby = sprout_owner.try_pickup_sprout(global_position)
 	if is_potato_nearby:
 		# TODO: Remove potato from ground
 		has_potato = true

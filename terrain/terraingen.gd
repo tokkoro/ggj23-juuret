@@ -6,11 +6,19 @@ var ground_far_color: Color = Color.brown.linear_interpolate(Color.black, 0.75);
 # var a = 2
 # var b = "text"
 
+func generate_terrain():
+	genterrain(1280, 500, 150, rand_range(0, 1e16));
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	randomize();
-	genterrain(1280, 500, 150, rand_range(0, 1e16));
+	randomize()
+	var maailma = find_parent("terraingen-debug")
+	if maailma:
+		print("Connecting terrain generation to transition_halfway signal")
+		maailma.connect("transition_halfway", self, "generate_terrain")
+	
+	generate_terrain()
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

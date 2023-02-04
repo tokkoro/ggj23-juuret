@@ -17,3 +17,4 @@ func _physics_process(delta):
 func die():
 	print("I'm die!")
 	dead = true
+	apply_central_impulse(Vector2(rand_range(-30, 30), rand_range(-1500, -800)))

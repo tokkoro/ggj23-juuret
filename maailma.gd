@@ -12,11 +12,12 @@ var round_time_left = 10.0
 var transition = false
 var transition_halfway = false
 
-const TRANSITION_DURATION = 5.0
-const ROUND_DURATION = 10.0
+const TRANSITION_DURATION = 2.0
+const ROUND_DURATION = 8.0
 
 var players = []
 var player_spawn_points = [Vector2(0,-100), Vector2(100,-100), Vector2(300,-100), Vector2(400,-100)]
+var round_index = -1;
 
 func is_game_paused():
 	if transition:
@@ -24,6 +25,7 @@ func is_game_paused():
 	return false
 
 func new_round():
+	round_index += 1
 	# play new round audio
 	round_time_left = ROUND_DURATION
 	transition = false
@@ -39,6 +41,14 @@ func new_round():
 
 		players.append(player)
 		add_child(player)
+		
+	var terraingen = preload("res://terrain/terraingen-node.tscn").instance()
+	terraingen.name = "terraingen_round_" + str(round_index)
+	terraingen.position.y += round_index * terraingen.get_terrain_whole_height()
+	add_child(terraingen)
+	
+	$game_cam.start_move_to_next_round(terraingen)
+	
 	print("signal: round_start")
 	emit_signal("round_start")
 
@@ -47,10 +57,14 @@ func end_round():
 	round_end_curtain_effect.set_shader_param("progress", 0.0)
 	transition = true
 	transition_halfway = false
+	for player_number in range(len(players)):
+		players[player_number].die()
+		
 	print("signal: round_end")
 	emit_signal("round_end")
 
 func _ready():
+	$bgm.play()
 	new_round()
 
 func _physics_process(delta):

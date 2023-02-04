@@ -1,6 +1,15 @@
 extends Node2D
 
+class_name Terraingen
+
 var ground_far_color: Color = Color.brown.linear_interpolate(Color.black, 0.75);
+
+var ground_width = 1280
+var ground_offset = 150
+var ground_height = 500
+
+func get_terrain_whole_height():
+	return (ground_height + ground_offset) * 2.0;
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -14,10 +23,6 @@ func generate_terrain():
 		terrain_old.queue_free()
 	
 	print("Generate new terrain root")
-	
-	var ground_width = 1280
-	var ground_offset = 150
-	var ground_height = 500
 	
 	var terrain_node = Node2D.new()
 	terrain_node.name = "terrain"
@@ -43,10 +48,11 @@ func generate_terrain():
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
-	var maailma = find_parent("Maailma")
-	if maailma:
-		print("Connecting terrain generation to transition_halfway signal")
-		maailma.connect("transition_halfway", self, "generate_terrain")
+	## No need to listen to this signal. All terrains are left as is when next round starts
+	#var maailma = find_parent("Maailma")
+	#if maailma:
+	#	print("Connecting terrain generation to transition_halfway signal")
+	#	maailma.connect("transition_halfway", self, "generate_terrain")
 	
 	generate_terrain()
 

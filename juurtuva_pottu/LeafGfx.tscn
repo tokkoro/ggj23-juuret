@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://juurtuva_pottu/LeafGfx.cs" type="Script" id=1]
+[ext_resource path="res://juurtuva_pottu/Grass_Texture.png" type="Texture" id=2]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0.00892857, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.146226, 0.0636363 ), 0.0, 0.0, 0, 0, Vector2( 0.240566, 0.418182 ), 1.26477, 1.26477, 0, 0, Vector2( 0.764151, 0.272727 ), -1.48675, -1.48675, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[node name="Leaf" type="Line2D"]
+rotation = 2.62672
+scale = Vector2( 2, 2 )
+points = PoolVector2Array( 0, 0, 0.1, 0, 0.2, 0, 0.3, 0, 0.4, 0, 0.5, 0, 0.6, 0, 0.7, 0, 0.8, 0, 0.9, 0, 1, 0 )
+width = 1.0
+width_curve = SubResource( 1 )
+default_color = Color( 0.290196, 0.709804, 0.266667, 1 )
+texture = ExtResource( 2 )
+texture_mode = 2
+script = ExtResource( 1 )

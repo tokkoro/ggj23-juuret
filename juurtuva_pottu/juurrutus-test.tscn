@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://juurtuva_pottu/Pottu.tscn" type="PackedScene" id=1]
+
+[node name="juurrutus-test" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2( 0, 20 )
+current = true
+zoom = Vector2( 0.2, 0.2 )
+
+[node name="Pottu" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, 40 )

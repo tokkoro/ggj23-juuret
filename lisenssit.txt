@@ -1,0 +1,7 @@
+Grass_Texture.png
+Creative Commons
+Base version: https://commons.wikimedia.org/wiki/File:Grass_Texture.png 
+
+Potato Icon (potato_vec.svg):
+Original: https://www.visualpharm.com/free-icons/potato-595b40b65ba036ed117d31c3
+This license allows free use for commercial use, but requires a link on each page where the icons appear. It's close to Creative Commons' Attribution. 

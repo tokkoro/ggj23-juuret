@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://juurtuva_pottu/RootGfx.tscn" type="PackedScene" id=1]
+[ext_resource path="res://juurtuva_pottu/Pottu.cs" type="Script" id=2]
+[ext_resource path="res://juurtuva_pottu/LateralStemGfx.tscn" type="PackedScene" id=3]
+[ext_resource path="res://juurtuva_pottu/StolonGfx.tscn" type="PackedScene" id=4]
+[ext_resource path="res://juurtuva_pottu/StemGfx.cs" type="Script" id=5]
+[ext_resource path="res://juurtuva_pottu/Potato_vec.svg" type="Texture" id=6]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0.00446428, 0.990909 ), 0.0, 0.0, 0, 0, Vector2( 0.991071, 0.209091 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0, 0.370166, 0.430939, 1 )
+colors = PoolColorArray( 0.34902, 0.219608, 0.0666667, 1, 0.980392, 0.627451, 0.0745098, 1, 0.247059, 0.470588, 0.0588235, 1, 0.247059, 0.470588, 0.0588235, 1 )
+
+[node name="Pottu" type="Node2D"]
+position = Vector2( 10, 200 )
+script = ExtResource( 2 )
+
+[node name="Debug_ground_pos" type="Line2D" parent="."]
+position = Vector2( 0, -20 )
+points = PoolVector2Array( -40, 0, 40, 0 )
+width = 1.0
+default_color = Color( 0.984314, 0.533333, 0.133333, 1 )
+
+[node name="Seed" type="Sprite" parent="."]
+self_modulate = Color( 0.560784, 0.505882, 0.45098, 1 )
+position = Vector2( 0, -2 )
+rotation = 0.546288
+scale = Vector2( 0.023, 0.023 )
+texture = ExtResource( 6 )
+
+[node name="Stem" type="Line2D" parent="."]
+points = PoolVector2Array( 1, -3, -5, -60 )
+width = 1.0
+width_curve = SubResource( 1 )
+default_color = Color( 0.247059, 0.470588, 0.0588235, 1 )
+gradient = SubResource( 2 )
+script = ExtResource( 5 )
+
+[node name="width" type="Line2D" parent="."]
+visible = false
+points = PoolVector2Array( -5, 0, 5, 0 )
+width = 1.0
+default_color = Color( 0.984314, 0.533333, 0.133333, 1 )
+
+[node name="RootGfx" parent="." instance=ExtResource( 1 )]
+points = PoolVector2Array( -20, -21 )
+
+[node name="StolonGfx" parent="." instance=ExtResource( 4 )]
+
+[node name="LateralStem" parent="." instance=ExtResource( 3 )]

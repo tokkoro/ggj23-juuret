@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://juurtuva_pottu/root_w_curve.tres" type="Curve" id=1]
+[ext_resource path="res://juurtuva_pottu/StolonGfx.cs" type="Script" id=2]
+[ext_resource path="res://juurtuva_pottu/Potato_vec.svg" type="Texture" id=3]
+
+[node name="StolonGfx" type="Line2D"]
+width = 1.0
+width_curve = ExtResource( 1 )
+default_color = Color( 0.74902, 0.588235, 0.337255, 1 )
+script = ExtResource( 2 )
+
+[node name="Uus_pottu" type="Sprite" parent="."]
+scale = Vector2( 1e-05, 1e-05 )
+texture = ExtResource( 3 )

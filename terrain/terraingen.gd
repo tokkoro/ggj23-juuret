@@ -45,6 +45,14 @@ func generate_terrain():
 	
 	add_child(terrain_node)
 
+func stop_colliding():
+	for c in get_node('./terrain').get_children():
+		for c_2 in c.get_children():
+			if c_2 is CollisionPolygon2D:
+				print("Stop colliding " + name + " child " + c_2.name)
+				c_2.disabled = true
+	
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()

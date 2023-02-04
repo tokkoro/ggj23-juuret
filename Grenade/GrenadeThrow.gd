@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var sprite = $Sprite
+onready var power_indicator = $PowerIndicator
 onready var parent_sprite = get_node("../Sprite")
 onready var parent = get_node("..")
 onready var sprout_owner = get_node("../../sprout_owner")
@@ -12,19 +12,22 @@ var throw_was_held = false
 var has_potato = false
 var flip = false
 
+
+func _ready():
+	power_indicator.scale.x = 0;
+	
 func pickup_potato():
 	var is_potato_nearby = sprout_owner.try_pickup_sprout(global_position)
 	if is_potato_nearby:
-		# TODO: Remove potato from ground
 		has_potato = true
 		maailma.audio.play("lift")
 
 func launch_potato(facing, force):
 	has_potato = false
 	var bomb = preload("res://Grenade/Grenade.tscn").instance()
-	var spawn_offset = Vector2(0, 0)
+	var spawn_offset = Vector2(10, -10)
 	spawn_offset.x *= facing
-	bomb.position = sprite.global_position + spawn_offset
+	bomb.position = global_position + spawn_offset
 	bomb.from_player = parent
 	bomb.from_player_number = parent.player_number
 	var x_force_multiplier = 100.0
@@ -57,10 +60,7 @@ func _physics_process(delta):
 		launch_potato(facing, throw_force)
 		throw_force = 0
 	
-	sprite.rotation_degrees = -90 + 50 * facing
-	sprite.position.x = 10 * facing
-	sprite.flip_v = facing < 0
 	if throw_force <= 0:
-		sprite.scale.x = 0
+		power_indicator.scale.x = 0
 	else:
-		sprite.scale.x = throw_force * 0.3
+		power_indicator.scale.x = facing * throw_force * 0.3

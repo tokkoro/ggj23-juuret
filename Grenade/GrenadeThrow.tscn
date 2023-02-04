@@ -1,25 +1,14 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Grenade/GrenadeThrow.png" type="Texture" id=1]
 [ext_resource path="res://Grenade/GrenadeThrow.gd" type="Script" id=2]
 
 [sub_resource type="Curve" id=1]
-_data = [ Vector2( 0, 0.345455 ), 0.0, 0.0, 0, 0, Vector2( 0.918919, 0.954545 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.0545454 ), -5.50414, 0.0, 0, 0 ]
+_data = [ Vector2( 0, 0.345455 ), 0.0, 0.0, 0, 0, Vector2( 0.87619, 0.854545 ), 2.8134, 2.8134, 0, 0, Vector2( 1, 0.0545454 ), -5.50414, 0.0, 0, 0 ]
 
 [node name="GrenadeThrow" type="Node2D"]
 script = ExtResource( 2 )
 
-[node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 10, -10 )
-rotation = -2.61799
-scale = Vector2( -1, 1 )
-texture = ExtResource( 1 )
-offset = Vector2( 25, 0 )
-
-[node name="Line2D" type="Line2D" parent="Sprite"]
-visible = false
-position = Vector2( -3.6602, -13.6603 )
-rotation = 0.523603
-scale = Vector2( 1, -1 )
-points = PoolVector2Array( 12, -11, 22, -7, 28, -3, 35, 0, 42, 5, 45, 7, 48, 9, 51, 11, 51.9482, 12.1585, 53, 13 )
+[node name="PowerIndicator" type="Line2D" parent="."]
+points = PoolVector2Array( 0, 0, 3, -3, 8, -8, 15, -13, 27, -20, 37, -22, 57, -22, 63, -21 )
 width_curve = SubResource( 1 )
+default_color = Color( 0.980392, 0.192157, 0.298039, 1 )

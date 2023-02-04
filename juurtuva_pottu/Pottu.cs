@@ -288,7 +288,7 @@ public class Pottu : Node2D
         {
             if (stolon.ripe)
             {
-                result.Add(stolon.targetHeadPosition);
+                result.Add(this.Position + stolon.targetHeadPosition);
             }
         }
 

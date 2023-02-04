@@ -4,9 +4,3 @@
 
 [node name="terraingen" type="Node2D"]
 script = ExtResource( 1 )
-
-[node name="terrain_mesh" type="MeshInstance2D" parent="."]
-
-[node name="terrain_body" type="StaticBody2D" parent="."]
-
-[node name="poly" type="CollisionPolygon2D" parent="terrain_body"]

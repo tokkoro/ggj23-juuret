@@ -34,7 +34,7 @@ func new_terrain():
 	add_child(terraingen)
 	round_terrains.push_back(terraingen)
 	
-	$game_cam.start_move_to_next_round(terraingen, Time.get_ticks_msec() + TRANSITION_DURATION * 1000)
+	$game_cam.start_move_to_next_round(terraingen, Time.get_ticks_usec() / 1000000.0 + TRANSITION_DURATION)
 
 func new_round():
 	# play new round audio

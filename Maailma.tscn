@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://game_cam.gd" type="Script" id=1]
 [ext_resource path="res://maailma.gd" type="Script" id=2]
@@ -22,6 +22,9 @@
 [ext_resource path="res://Perunasoundit/8.wav" type="AudioStream" id=20]
 [ext_resource path="res://Perunasoundit/13.wav" type="AudioStream" id=21]
 
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 0 ), 0.0, -2.2028, 0, 0, Vector2( 0.0761905, 0 ), 4.05682, 4.05682, 0, 0, Vector2( 0.138095, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.752381, 1 ), 4.77273, 4.77273, 0, 0, Vector2( 0.814286, 0.990909 ), 9.33333, 9.33333, 0, 0, Vector2( 0.871428, 1 ), 10.0909, 10.0909, 0, 0, Vector2( 0.933333, 1 ), 8.06061, 8.06061, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
 [node name="Maailma" type="Node2D"]
 script = ExtResource( 2 )
 
@@ -32,6 +35,7 @@ script = ExtResource( 2 )
 [node name="game_cam" type="Camera2D" parent="."]
 current = true
 script = ExtResource( 1 )
+transition_curve = SubResource( 1 )
 
 [node name="audio" type="Node2D" parent="game_cam"]
 z_index = -2

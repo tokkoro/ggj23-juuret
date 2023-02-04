@@ -30,36 +30,6 @@ scale = Vector2( 0.08, 0.08 )
 z_as_relative = false
 texture = ExtResource( 3 )
 
-[node name="FloorCast" type="RayCast2D" parent="."]
-position = Vector2( -1, 0 )
-enabled = true
-cast_to = Vector2( 35, 44 )
-
-[node name="EnemyCast" type="RayCast2D" parent="."]
-enabled = true
-cast_to = Vector2( 60, 0 )
-collision_mask = 4
-
-[node name="Naama" type="Node2D" parent="."]
-
-[node name="silma" type="Sprite" parent="Naama"]
-position = Vector2( -9, -6 )
-rotation = -2.56912
-scale = Vector2( 0.03, 0.03 )
-texture = ExtResource( 3 )
-
-[node name="silma2" type="Sprite" parent="Naama"]
-position = Vector2( 13, -6 )
-rotation = -2.07869
-scale = Vector2( 0.035, 0.035 )
-texture = ExtResource( 3 )
-
-[node name="suu" type="Sprite" parent="Naama"]
-position = Vector2( 1, 0.999999 )
-rotation = 0.816814
-scale = Vector2( 0.02, 0.02 )
-texture = ExtResource( 3 )
-
 [node name="kruunut" type="Node2D" parent="."]
 script = ExtResource( 4 )
 
@@ -122,3 +92,34 @@ position = Vector2( 1.00001, -78 )
 rotation = 0.816814
 scale = Vector2( 0.04, 0.04 )
 texture = ExtResource( 3 )
+
+[node name="Naama" type="Node2D" parent="."]
+
+[node name="silma" type="Sprite" parent="Naama"]
+position = Vector2( -9, -6 )
+rotation = -2.56912
+scale = Vector2( 0.03, 0.03 )
+texture = ExtResource( 3 )
+
+[node name="silma2" type="Sprite" parent="Naama"]
+position = Vector2( 13, -6 )
+rotation = -2.07869
+scale = Vector2( 0.035, 0.035 )
+texture = ExtResource( 3 )
+
+[node name="suu" type="Sprite" parent="Naama"]
+position = Vector2( 1, 0.999999 )
+rotation = 0.816814
+scale = Vector2( 0.02, 0.02 )
+texture = ExtResource( 3 )
+
+[node name="FloorCast" type="RayCast2D" parent="."]
+position = Vector2( -1, 0 )
+enabled = true
+cast_to = Vector2( 22.058, 28.438 )
+
+[node name="EnemyCast" type="RayCast2D" parent="."]
+position = Vector2( 0, 8 )
+enabled = true
+cast_to = Vector2( 44, -12 )
+collision_mask = 4

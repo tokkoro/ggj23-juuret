@@ -11,7 +11,6 @@ func _ready():
 	print("p", player_number)
 
 func _physics_process(delta):
-	
 	pass
 	
 func die():

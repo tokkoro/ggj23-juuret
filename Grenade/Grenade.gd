@@ -29,6 +29,7 @@ func _body_entered_asdf(node: PhysicsBody2D):
 			return
 		# kill audio
 		print("Pelaaja-kuale")
+		#aosdfiojajiopdsf
 		queue_free()
 		
 		

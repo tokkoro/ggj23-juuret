@@ -20,7 +20,7 @@ func _ripen_sprouts():
 	for i in range(len(sprouts) - 1, -1, -1):
 		if sprouts[i].ripe:
 			sprouts[i].queue_free()
-			sprouts.remove(sprouts[i])
+			sprouts.erase(sprouts[i])
 		else:
 			sprouts[i].ripe = true
 

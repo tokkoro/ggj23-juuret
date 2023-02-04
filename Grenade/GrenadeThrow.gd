@@ -12,6 +12,11 @@ var throw_was_held = false
 var has_potato = false
 var flip = false
 
+export var low_color: Color
+export var power_color: Color
+
+var max_power = 10 
+
 
 func _ready():
 	power_indicator.scale.x = 0;
@@ -25,14 +30,12 @@ func pickup_potato():
 func launch_potato(facing, force):
 	has_potato = false
 	var bomb = preload("res://Grenade/Grenade.tscn").instance()
-	var spawn_offset = Vector2(10, -10)
+	var spawn_offset = Vector2(20, -10)
 	spawn_offset.x *= facing
 	bomb.position = global_position + spawn_offset
 	bomb.from_player = parent
 	bomb.from_player_number = parent.player_number
-	var x_force_multiplier = 100.0
-	var y_force_multiplier = 100.0
-	bomb.apply_central_impulse(Vector2(facing * (0.3 + force) * x_force_multiplier, -1 * (0.7 + force * 0.5) * y_force_multiplier))
+	bomb.apply_central_impulse(Vector2(facing * (0.3 + force), -1 * (0.7 + force * 0.5))*100)
 	get_node("../..").add_child(bomb)
 	maailma.audio.play("throw")
 
@@ -63,4 +66,9 @@ func _physics_process(delta):
 	if throw_force <= 0:
 		power_indicator.scale.x = 0
 	else:
-		power_indicator.scale.x = facing * throw_force * 0.3
+		power_indicator.scale.x = 1; #facing * throw_force * 0.3
+		var pool_array = PoolVector2Array()
+		pool_array.push_back(Vector2(facing * 10, 0))
+		pool_array.push_back(Vector2(facing*10, 0) + Vector2(facing * (0.3 + throw_force), -1 * (0.7 + throw_force * 0.5))*10)
+		power_indicator.points = pool_array
+		power_indicator.default_color = low_color.linear_interpolate(power_color, clamp(throw_force/10, 0, 1) )

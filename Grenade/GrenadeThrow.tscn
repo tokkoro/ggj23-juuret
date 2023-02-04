@@ -1,14 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://Grenade/GrenadeThrow.gd" type="Script" id=2]
 
-[sub_resource type="Curve" id=1]
-_data = [ Vector2( 0, 0.345455 ), 0.0, 0.0, 0, 0, Vector2( 0.87619, 0.854545 ), 2.8134, 2.8134, 0, 0, Vector2( 1, 0.0545454 ), -5.50414, 0.0, 0, 0 ]
-
 [node name="GrenadeThrow" type="Node2D"]
 script = ExtResource( 2 )
+low_color = Color( 0.980392, 0.6, 0.192157, 1 )
+power_color = Color( 0.980392, 0.192157, 0.298039, 1 )
 
 [node name="PowerIndicator" type="Line2D" parent="."]
 points = PoolVector2Array( 0, 0, 3, -3, 8, -8, 15, -13, 27, -20, 37, -22, 57, -22, 63, -21 )
-width_curve = SubResource( 1 )
+width = 2.0
 default_color = Color( 0.980392, 0.192157, 0.298039, 1 )

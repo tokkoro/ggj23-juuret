@@ -33,6 +33,13 @@ func _remove_unused_potatoes():
 		var grenade = preload("res://Grenade/Grenade.tscn").instance()
 		grenade.position = newPos
 		get_node("..").add_child(grenade)
+	if len(new_potatoes) == 0:
+		var y = maailma.get_latest_terrain_y()
+		for i in range(4):
+			var grenade = preload("res://Grenade/Grenade.tscn").instance()
+			grenade.position.x = -300.0 + i * 200.0 - rand_range(-100.0, 100.0)
+			grenade.position.y = y
+			get_node("..").add_child(grenade)
 
 func _ready():
 	maailma.connect("transition_halfway", self, "_remove_unused_potatoes")

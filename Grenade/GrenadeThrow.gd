@@ -3,6 +3,7 @@ extends Node2D
 onready var sprite = $Sprite
 onready var parent_sprite = get_node("../Sprite")
 onready var parent = get_node("..")
+onready var sprout_owner = get_node("../../sprout_owner")
 
 var throw_force = 0.0
 var throw_held = false
@@ -10,7 +11,7 @@ var throw_was_held = false
 var has_potato = false
 
 func pickup_potato():
-	var is_potato_nearby = int(Time.get_ticks_msec()) % 2000 < 1000 # TODO: Implement
+	var is_potato_nearby = sprout_owner.try_pickup_sprout(global_position)
 	if is_potato_nearby:
 		# TODO: Remove potato from ground
 		has_potato = true
@@ -24,8 +25,7 @@ func launch_potato(facing, force):
 	bomb.from_player = parent
 	var x_force_multiplier = 100.0
 	var y_force_multiplier = 100.0
-	bomb.gravity_scale = 2
-	bomb.apply_central_impulse(Vector2(facing * (0.3 + force) * x_force_multiplier, -1 * (0.5 + force * 0.5) * y_force_multiplier))
+	bomb.apply_central_impulse(Vector2(facing * (0.3 + force) * x_force_multiplier, -1 * (0.7 + force * 0.5) * y_force_multiplier))
 	get_node("../..").add_child(bomb)
 
 func _process(delta):
@@ -48,7 +48,7 @@ func _physics_process(delta):
 	if not has_potato:
 		throw_force = 0.0
 	elif throw_held:
-		throw_force += delta
+		throw_force += delta * 10
 	elif throw_force > 0:
 		launch_potato(facing, throw_force)
 		throw_force = 0
@@ -59,4 +59,4 @@ func _physics_process(delta):
 	if throw_force <= 0:
 		sprite.scale.x = 0
 	else:
-		sprite.scale.x = throw_force
+		sprite.scale.x = throw_force * 0.3

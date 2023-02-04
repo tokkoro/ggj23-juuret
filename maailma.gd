@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var round_end_curtain_effect = $curtains.material
+onready var round_end_curtain_effect = $flames.material
 
 onready var input = $input
 
@@ -27,7 +27,7 @@ func new_round():
 	# play new round audio
 	round_time_left = ROUND_DURATION
 	transition = false
-	round_end_curtain_effect.set_shader_param("progress", 0.0)
+	round_end_curtain_effect.set_shader_param("progress", 1.0)
 	for player_number in range(4):
 		var player = preload("res://player.tscn").instance()
 		player.player_number = player_number
@@ -40,6 +40,7 @@ func new_round():
 
 func end_round():
 	# play round end audio
+	round_end_curtain_effect.set_shader_param("progress", 0.0)
 	transition = true
 	transition_halfway = false
 	print("signal: round_end")

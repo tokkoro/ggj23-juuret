@@ -2,19 +2,12 @@ extends Node2D
 
 onready var round_end_curtain_effect = $curtains.material
 
-signal round_start
-signal round_end
-signal transition_halfway
-
 var round_time_left = 10.0
 var transition = false
 var transition_halfway = false
 
 const TRANSITION_DURATION = 5.0
 const ROUND_DURATION = 10.0
-
-var players = []
-var player_spawn_points = [Vector2(0,-100), Vector2(100,-100), Vector2(300,-100), Vector2(400,-100)]
 
 func is_game_paused():
 	if transition:
@@ -26,13 +19,6 @@ func new_round():
 	round_time_left = ROUND_DURATION
 	transition = false
 	round_end_curtain_effect.set_shader_param("progress", 0.0)
-	for player_number in range(4):
-		var player = preload("res://player.tscn").instance()
-		player.player_number = player_number
-		player.position = player_spawn_points[player_number]
-		
-		players.append(player)
-		add_child(player)
 	print("signal: round_start")
 	emit_signal("round_start")
 
@@ -44,15 +30,13 @@ func end_round():
 
 func _ready():
 	new_round()
+	pass
 
 func _process(delta):
 	round_time_left -= delta
 	if transition:
 		if not transition_halfway && round_time_left < -TRANSITION_DURATION * 0.5:
 			transition_halfway = true
-			for player in players:
-				player.queue_free()
-			players = []
 			print("singal: transition_halfway")
 			emit_signal("transition_halfway")
 		

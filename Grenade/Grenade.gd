@@ -22,11 +22,14 @@ func _body_entered_asdf(node: PhysicsBody2D):
 		sprout_owner.add_child(sprout)
 		sprout_owner.sprouts.append(sprout)
 		queue_free()
-	elif "player" in node.get_name():
+	elif "player" in node.name:
 		if from_player == node and Time.get_ticks_msec() - spawn_time < 200:
 			print("Älä lyö sua!")
 			return
 		# kill audio
-		print("Pelaaja-kuale")
-		node.die()
+		if is_instance_valid(from_player):
+			print("Player " + node.name + " hit by " + from_player.name)
+			node.die()
+		else:
+			print("This pottu was not from anyone")
 		queue_free()

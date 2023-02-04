@@ -11,6 +11,7 @@ signal transition_halfway
 var round_time_left = 10.0
 var transition = false
 var transition_halfway = false
+var game_running = true
 
 const TRANSITION_DURATION = 2.0
 const ROUND_DURATION = 8.0
@@ -122,6 +123,8 @@ func reset_collision_mask(var enemy):
 	enemy.set_collision_layer_bit(3, true);
 
 func _process(delta):
+	if not game_running:
+		return
 	if round_time_left >= ROUND_DURATION and not audio.bgm.playing:
 		audio.bgm.play()
 	round_time_left -= delta
@@ -147,4 +150,5 @@ func _process(delta):
 
 func end_game():
 	print("game over!")
+	game_running = false
 		

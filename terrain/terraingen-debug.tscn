@@ -58,7 +58,7 @@ current = true
 
 [node name="DummyPelaaja" type="RigidBody2D" parent="."]
 material = SubResource( 6 )
-position = Vector2( 250, -200 )
+position = Vector2( 211, -150 )
 
 [node name="GrenadeThrow" parent="DummyPelaaja" instance=ExtResource( 2 )]
 z_index = 100

@@ -62,7 +62,11 @@ func _physics_process(delta):
 			players[player_number].get_node("Sprite").flip_h = false
 			
 		players[player_number].get_node("GrenadeThrow").throw_held = throw
-		players[player_number].apply_central_impulse(Vector2(x * 10.0, 0))
+		var y_impulse = 0
+		var raycast_on_floor = players[player_number].get_node("FloorCast").is_colliding() 
+		if x != 0 && raycast_on_floor:
+			y_impulse = -50
+		players[player_number].apply_central_impulse(Vector2(x * 30.0, y_impulse))
 
 func _process(delta):
 	round_time_left -= delta

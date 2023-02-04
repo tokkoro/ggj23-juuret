@@ -1,0 +1,29 @@
+[gd_scene format=2]
+
+[node name="GUI" type="MarginContainer"]
+margin_left = -107.5
+margin_top = -38.0
+margin_right = 147.5
+margin_bottom = 78.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 255.0
+margin_bottom = 133.0
+
+[node name="Left" type="VBoxContainer" parent="HBoxContainer"]
+margin_right = 232.0
+margin_bottom = 133.0
+
+[node name="Label" type="Label" parent="HBoxContainer/Left"]
+margin_right = 232.0
+margin_bottom = 133.0
+text = "P1 - Arrow keys
+P2 - WASD
+P3 - Numpad
+P4 - JKLI
+
+[Down] pick up potato, hold to throw
+[F] Full screen
+[ESC] Quit"

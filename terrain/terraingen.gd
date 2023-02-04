@@ -10,7 +10,7 @@ var ground_far_color: Color = Color.brown.linear_interpolate(Color.black, 0.75);
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize();
-	genterrain(750, 100, 100, rand_range(0, 1e16));
+	genterrain(1280, 500, 150, rand_range(0, 1e16));
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -27,20 +27,18 @@ func genterrain(width: float, height: float, offset: float, seed_v: float):
 	var sc: float = 100;
 	var division_count = 128;
 	
-	var wave_h: float = 40;
+	var wave_h: float = 100;
 	var wave_f_arr = [];
 	var rand_h = 0;
 	var rand_gen = RandomNumberGenerator.new()
 	rand_gen.seed = seed_v;
-	for wave_i in range(0, 8):
-		wave_f_arr.push_back(rand_gen.randf() * 20);
+	for wave_i in range(0, 64):
+		wave_f_arr.push_back(rand_gen.randf() * rand_range(4, 30));
 	
-	var ground_points = [];	
+	var ground_points = [];
 	for i in range(0, division_count):
 		var i_f = float(i);
 		var t: float = i_f / division_count;
-		var x = t * width;
-		
 		var gp = GroundPoint.new();
 		
 		var h = 0;
@@ -48,7 +46,7 @@ func genterrain(width: float, height: float, offset: float, seed_v: float):
 			h += sin(wave_f * PI * t) * wave_h / wave_f_arr.size()
 			
 		gp.p = Vector2(
-			t * width,
+			t * width - width / 2, # center around node origin
 			h + offset
 		);
 		

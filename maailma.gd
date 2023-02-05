@@ -15,8 +15,8 @@ var game_running = true
 var wait_for_first_sprout = true
 var game_end_start_time = 1000 * 1000
 
-const TRANSITION_DURATION = 0.0
-const ROUND_DURATION = 0.0
+const TRANSITION_DURATION = 2.0
+const ROUND_DURATION = 8.0
 
 const reactivate_ceiling_time = 7.0
 var reactivated_ceiling_collider = false

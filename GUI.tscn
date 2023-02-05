@@ -16,12 +16,12 @@ margin_left = -119.0
 margin_top = -24.0
 margin_right = 136.0
 margin_bottom = 126.0
-text = "P1 - Arrow keys
-P2 - WASD
+text = "P1 - Arrows
+P2 - ASD
 P3 - Numpad
-P4 - JKLI
+P4 - JKL
 
-[Down] pick up potato, hold to throw
+Hold [Down] to throw potato
 [F] Full screen
 [ESC] Quit
-[R] stop camera rotation"
+[R] Toggle camera sway"

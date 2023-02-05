@@ -22,7 +22,7 @@ const reactivate_ceiling_time = 7.0
 var reactivated_ceiling_collider = false
 
 var players = []
-var player_spawn_points = [Vector2(0,-100), Vector2(100,-100), Vector2(300,-100), Vector2(400,-100)]
+var player_spawn_points = [Vector2(-400,-100), Vector2(150,-100), Vector2(400,-100), Vector2(-150,-100)]
 var player_scores = [0,0,0,0]
 var round_terrains = []
 

@@ -80,6 +80,7 @@ func _ready():
 
 func _physics_process(delta):
 	for player_number in range(len(players)):
+		var player_sprite = players[player_number].get_node("Sprite");
 		var left = Input.is_action_pressed(input.get_input_string("player_left_", player_number))
 		var right = Input.is_action_pressed(input.get_input_string("player_right_", player_number))
 		var throw = Input.is_action_pressed(input.get_input_string("player_throw_", player_number))
@@ -87,25 +88,43 @@ func _physics_process(delta):
 			left = false
 			right = false
 			throw = false
-			players[player_number].get_node("Sprite").rotation_degrees = 45
+			player_sprite.rotation_degrees = 45
 			
 		var x = 0.0
 		var current_player = players[player_number];
 		if left:
 			x += -1.0
-			current_player.get_node("Sprite").rotation_degrees = 135
+			player_sprite.rotation_degrees = 135
 			current_player.get_node("GrenadeThrow").flip = true
 		if right:
 			x += 1.0
-			current_player.get_node("Sprite").rotation_degrees = -45
+			player_sprite.rotation_degrees = -45
 			current_player.get_node("GrenadeThrow").flip = false
 			
 		current_player.get_node("GrenadeThrow").throw_held = throw
 		var y_impulse = 0
-		var raycast_on_floor = current_player.get_node("FloorCast").is_colliding() 
+		var raycast_on_floor = current_player.get_node("FloorCast").is_colliding()||current_player.get_node("FloorCast2").is_colliding() 
+
 		if x != 0 && raycast_on_floor:
 			y_impulse = -45
 		current_player.apply_central_impulse(Vector2(x * 30.0, y_impulse))
+	
+		#raycast to see if enemy at top of player
+		var top_raycast = current_player.get_node("TopCast");
+		var is_someone_at_top = top_raycast.is_colliding();
+		
+		if is_someone_at_top:
+			var enemy = top_raycast.get_collider();
+			var flipped = 1;
+			if player_sprite.flip_h:
+				flipped = -1;
+			enemy.apply_central_impulse(Vector2(flipped * 320, -300.0))
+			enemy.im_hit_no_collision_timer.connect("timeout",self,"reset_collision_mask")
+			enemy.im_hit_no_collision_timer.wait_time = 0.3
+			enemy.im_hit_no_collision_timer.one_shot = true
+			enemy.im_hit_no_collision_timer.start()
+			enemy.set_collision_layer_bit(3, false) 
+	
 	
 		#raycast to see if there is enemy in front that can be punched out of the way	
 		var enemy_raycast = current_player.get_node("EnemyCast");

@@ -32,9 +32,8 @@ func _ready():
 
 func _physics_process(delta):
 	pass
-	
+
 func die():
-	print("I die!", player_number)
 	dead = true
 	apply_central_impulse(Vector2(rand_range(-30, 30), rand_range(-1500, -800)))
 

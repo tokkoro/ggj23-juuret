@@ -13,9 +13,10 @@ var transition = false
 var transition_halfway = false
 var game_running = true
 var wait_for_first_sprout = true
+var game_end_start_time = 1000 * 1000
 
 const TRANSITION_DURATION = 2.0
-const ROUND_DURATION = 10.0
+const ROUND_DURATION = 8.0
 
 const reactivate_ceiling_time = 7.0
 var reactivated_ceiling_collider = false
@@ -40,12 +41,7 @@ func new_terrain():
 	
 	$game_cam.start_move_to_next_round(terraingen, Time.get_ticks_usec() / 1000000.0 + TRANSITION_DURATION)
 
-func new_round():
-	# play new round audio
-	round_time_left = ROUND_DURATION
-	transition = false
-	round_end_curtain_effect.set_shader_param("progress", 1.0)
-	
+func spawn_players():
 	for player_number in range(4):
 		var player = preload("res://player/player.tscn").instance()
 		player.player_number = player_number
@@ -58,8 +54,21 @@ func new_round():
 		players.append(player)
 		add_child(player)
 		
+
+func new_round():
+	# play new round audio
+	round_time_left = ROUND_DURATION
+	transition = false
+	round_end_curtain_effect.set_shader_param("progress", 1.0)
+	
 	print("signal: round_start")
 	emit_signal("round_start")
+
+func kill_all():
+	for player_number in range(len(players)):
+		players[player_number].die()
+		players[player_number].burn()
+	
 
 func end_round():
 	# play round end audio
@@ -68,11 +77,8 @@ func end_round():
 	round_end_curtain_effect.set_shader_param("progress", 1.0)
 	transition = true
 	transition_halfway = false
-	for player_number in range(len(players)):
-		players[player_number].die()
-		players[player_number].burn()
 	get_node("./sprout_owner").burn_extra()
-	
+	kill_all()
 	new_terrain()
 	
 	print("signal: round_end")
@@ -82,6 +88,7 @@ func _ready():
 	player_scores = [0,0,0,0]
 	new_terrain()
 	new_round()
+	spawn_players()
 
 func _physics_process(delta):
 	for player_number in range(len(players)):
@@ -167,6 +174,9 @@ func _process(delta):
 		OS.window_fullscreen = !OS.window_fullscreen
 		
 	if not game_running:
+		if not audio.victory_musa.playing or game_end_start_time + 15 * 1000 < Time.get_ticks_msec():
+			# restart game
+			get_tree().reload_current_scene()
 		return
 	if not wait_for_first_sprout and not audio.bgm.playing:
 		audio.bgm.play()
@@ -180,6 +190,9 @@ func _process(delta):
 				player_spawn_points[i].x = players[i].position.x
 				players[i].queue_free()
 			players.clear()
+			
+			spawn_players()
+			
 			# free potatoes
 			for t in round_terrains:
 				if t != round_terrains.back():
@@ -205,7 +218,11 @@ func _process(delta):
 		#round_terrains.back().start_colliding()
 
 func end_game():
-	print("game over!")
+	if game_running:
+		audio.bgm.stop()
+		audio.victory_musa.play()
+		game_end_start_time = Time.get_ticks_msec()
+		kill_all()
 	game_running = false
 
 func get_latest_terrain_y():

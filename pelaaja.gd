@@ -7,15 +7,22 @@ var x_velocity = 0.0
 var x_last_tick = 0.0
 var im_hit_no_collision_timer = Timer.new();
 
+var color: Color
+var black = Color(0,0,0,1)
+
+var burning = false
+var burning_duration = 0
+
 func _ready():
 	if player_number == 0:
-		$Sprite.modulate = Color(1.0, 0.5, 0.5)
+		color = Color(1.0, 0.5, 0.5)
 	elif player_number == 1:
-		$Sprite.modulate = Color(0.5, 1.0, 0.5)
+		color = Color(0.5, 1.0, 0.5)
 	elif player_number == 2:
-		$Sprite.modulate = Color(0.5, 0.5, 1.0)
+		color = Color(0.5, 0.5, 1.0)
 	else:
-		$Sprite.modulate = Color(0.9, 0.9, 0.5)
+		color = Color(0.9, 0.9, 0.5)
+	$Sprite.modulate = color
 	
 	var crown = preload("res://player/kruunut.tscn").instance()
 	crown.target_player = self
@@ -29,3 +36,14 @@ func die():
 	print("I die!", player_number)
 	dead = true
 	apply_central_impulse(Vector2(rand_range(-30, 30), rand_range(-1500, -800)))
+
+func burn():
+	# print("BURN p " + name)
+	burning = true
+	burning_duration = 0
+	
+func _process(delta):
+	if burning:
+		burning_duration += delta
+		var c = color.linear_interpolate(black, clamp(burning_duration, 0, 1))
+		$Sprite.modulate = c

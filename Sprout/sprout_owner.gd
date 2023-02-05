@@ -3,7 +3,7 @@ extends Node2D
 onready var maailma = get_node("..")
 
 var sprouts = []
-const RADIUS = 50
+const RADIUS = 60
 var spawn_potato_count = 6
 
 func try_pickup_sprout(pos):
@@ -14,6 +14,12 @@ func try_pickup_sprout(pos):
 					child.queue_free()
 					return true
 	return false
+
+func burn_extra():
+	for child in get_node('..').get_children():
+		if 'Grenade' in child.name:
+			child.burn()
+	
 
 func _remove_unused_potatoes():
 	for child in get_node('..').get_children():

@@ -4,6 +4,12 @@ var from_player = null
 var from_player_number = 0
 var spawn_time = 0
 
+var color: Color = Color(1,1,1,1)
+var black = Color(0,0,0,1)
+
+var burning = false
+var burning_duration = 0
+
 func _ready():
 	contact_monitor = true
 	contacts_reported = 5
@@ -25,8 +31,7 @@ func _body_entered_asdf(node: PhysicsBody2D):
 		get_node('..').wait_for_first_sprout = false
 		queue_free()
 	elif "player" in node.name:
-		if from_player == node and Time.get_ticks_msec() - spawn_time < 200:
-			print("Älä lyö sua!")
+		if from_player == node:
 			return
 		if node.dead:
 			return
@@ -43,3 +48,15 @@ func _body_entered_asdf(node: PhysicsBody2D):
 			linear_velocity.x = rand_range(100, 400)
 		else:
 			linear_velocity.x = -rand_range(100, 400)
+			
+func burn():
+	# print("BURN pot " + name)
+	burning = true
+	burning_duration = 0
+	
+func _process(delta):
+	if burning:
+		burning_duration += delta
+		var c = color.linear_interpolate(black, clamp(burning_duration, 0, 1))
+		$Sprite.modulate = c
+

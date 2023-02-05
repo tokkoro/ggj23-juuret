@@ -72,3 +72,4 @@ func _physics_process(delta):
 		pool_array.push_back(Vector2(facing*10, 0) + Vector2(facing * (0.3 + throw_force+ sqrt(throw_force)), -1 * (0.4 + throw_force * sqrt(throw_force) * 0.35))*10)
 		power_indicator.points = pool_array
 		power_indicator.default_color = low_color.linear_interpolate(power_color, clamp(throw_force/10, 0, 1) )
+

@@ -67,7 +67,9 @@ func end_round():
 	transition_halfway = false
 	for player_number in range(len(players)):
 		players[player_number].die()
-		
+		players[player_number].burn()
+	get_node("./sprout_owner").burn_extra()
+	
 	new_terrain()
 	
 	print("signal: round_end")

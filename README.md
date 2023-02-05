@@ -1,6 +1,6 @@
 # Perunasota
 
-Made at Global Game Jam 2023, Februray, 3 - 5
+Made during Global Game Jam 2023, Februray, 3 - 5, at FGJ Helsinki Arabia jam site.
 
 Fast round based local multiplayer action game about warring potatoes.
 
@@ -11,6 +11,7 @@ Use potatoes as grenades to defeat your oppnents or plant them in the ground and
 
 You need a Godot with Mono support.
 
+
 ## Play
 
 Move your character near a potato and press the Throw/Plant to throw/plant it.
@@ -18,6 +19,7 @@ Move your character near a potato and press the Throw/Plant to throw/plant it.
 Plant some potatoes (throw to ground) to end the first round.
 
 The game lasts for 12 rounds, 8 seconds each.
+
 
 ### Controls
 
@@ -29,9 +31,11 @@ The four playes use the following keys for actions:
 - Arrow keys
 - Numpad
 
+
 ## Tech
 
 Made using the Godot engine.
+
 
 ## Credits
 
@@ -43,5 +47,5 @@ Programming, game design, graphics:
 - tokkoro
 
 Music and sound effects:
-- Leevi
-- Onni
+- Leevi "lemail" Virtanen
+- Onni Westman

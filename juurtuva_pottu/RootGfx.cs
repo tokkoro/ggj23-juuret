@@ -1,24 +1,24 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public class RootGfx : Line2D
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
 
-    // Called when the node enters the scene tree for the first time.
+    List<SubRootGfx> subRootGfxes = new List<SubRootGfx>();
+
     public override void _Ready()
     {
-
+        for (int i = 0; i < 30; ++i)
+        {
+            this.GenerateNewSubRoot();
+        }
+        foreach (var l in this.subRootGfxes)
+        {
+            l.SetParameters(0, Vector2.Zero, 0);
+        }
     }
-
-    //  // Called every frame. 'delta' is the elapsed time since the previous frame.
-    //  public override void _Process(float delta)
-    //  {
-    //      
-    //  }
-    public void SetParameters(Vector2 x0, Vector2 x1, float w, Vector2 c0, Vector2 c1, float t)
+    public void SetParameters(Vector2 x0, Vector2 x1, float w, Vector2 c0, Vector2 c1, float t, Side side)
     {
         int parts = 14;
         var positions = new Vector2[(parts + 1)];
@@ -28,10 +28,25 @@ public class RootGfx : Line2D
             float t_n = (i + 1) / (float)parts;
             // positions[i + 1] = x0.LinearInterpolate(x1, t);
             positions[i + 1] = CurveTools.CubicBezier(x0, c0, c1, x1, t_n * t);
+            // for each point add two leafs, but not first and last
+            if (i % 2 == 1)
+            {
+                float subRootT = Mathf.Clamp((t - 0.1f * (i - 1)) / 0.5f, 0, 1);
+                this.subRootGfxes[i - 1].SetParameters(subRootT, positions[i + 1], 60);
+                this.subRootGfxes[parts + (i - 1)].SetParameters(subRootT, positions[i + 1], 120);
+            }
         }
 
         this.Points = positions;
         this.Width = w;
     }
 
+
+    private void GenerateNewSubRoot()
+    {
+        PackedScene subroot = ResourceLoader.Load<PackedScene>("res://juurtuva_pottu/SubRootGfx.tscn");
+        Node newNode = subroot.Instance();
+        AddChild(newNode);
+        this.subRootGfxes.Add(newNode as SubRootGfx);
+    }
 }

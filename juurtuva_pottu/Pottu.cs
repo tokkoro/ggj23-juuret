@@ -164,7 +164,7 @@ public class Pottu : Node2D
             Root r = this.roots[i];
             float r_t = Mathf.Clamp((this.totalTime - r.startTime) / r.duration, 0, 1);
             // Vector2 headPoint = r.growPointOffset.LinearInterpolate(r.targetHeadPosition, r_t);
-            this.rootGfxs[i].SetParameters(r.growPointOffset, r.targetHeadPosition, Mathf.Lerp(0, 0.5f, r_t), r.controlPoint0, r.controlPoint1, r_t);
+            this.rootGfxs[i].SetParameters(r.growPointOffset, r.targetHeadPosition, Mathf.Lerp(0, 0.5f, r_t), r.controlPoint0, r.controlPoint1, r_t, r.side);
         }
         for (int i = 0; i < this.stolons.Count; ++i)
         {

@@ -28,6 +28,8 @@ func _body_entered_asdf(node: PhysicsBody2D):
 		if from_player == node and Time.get_ticks_msec() - spawn_time < 200:
 			print("Älä lyö sua!")
 			return
+		if node.dead:
+			return
 		# kill audio
 		if is_instance_valid(from_player):
 			print("Player " + node.name + " hit by " + from_player.name)

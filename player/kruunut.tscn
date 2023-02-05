@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://player/kruunut.gd" type="Script" id=1]
+
+[node name="kruunut" type="Node2D"]
+script = ExtResource( 1 )

@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Grenade/GrenadeThrow.tscn" type="PackedScene" id=1]
 [ext_resource path="res://pelaaja.gd" type="Script" id=2]
 [ext_resource path="res://player/player_vec.svg" type="Texture" id=3]
-[ext_resource path="res://player/kruunut.gd" type="Script" id=4]
 
 [sub_resource type="CapsuleShape2D" id=9]
 
@@ -28,79 +27,6 @@ shape = SubResource( 9 )
 rotation = -0.785398
 scale = Vector2( 0.08, 0.08 )
 z_as_relative = false
-texture = ExtResource( 3 )
-
-[node name="kruunut" type="Node2D" parent="."]
-script = ExtResource( 4 )
-
-[node name="kruunu0" type="Sprite" parent="kruunut"]
-modulate = Color( 1, 0.882353, 0.337255, 1 )
-position = Vector2( 1, -21 )
-rotation = 0.816814
-scale = Vector2( 0.04, 0.04 )
-texture = ExtResource( 3 )
-
-[node name="kruunu1" type="Sprite" parent="kruunut"]
-modulate = Color( 1, 0.882353, 0.337255, 1 )
-position = Vector2( 1, -29 )
-rotation = 0.816814
-scale = Vector2( 0.04, 0.04 )
-texture = ExtResource( 3 )
-
-[node name="kruunu2" type="Sprite" parent="kruunut"]
-modulate = Color( 1, 0.882353, 0.337255, 1 )
-position = Vector2( 1, -36 )
-rotation = 0.816814
-scale = Vector2( 0.04, 0.04 )
-texture = ExtResource( 3 )
-
-[node name="kruunu3" type="Sprite" parent="kruunut"]
-modulate = Color( 1, 0.882353, 0.337255, 1 )
-position = Vector2( 1, -42 )
-rotation = 0.816814
-scale = Vector2( 0.04, 0.04 )
-texture = ExtResource( 3 )
-
-[node name="kruunu4" type="Sprite" parent="kruunut"]
-modulate = Color( 1, 0.882353, 0.337255, 1 )
-position = Vector2( 0.999999, -49 )
-rotation = 0.816814
-scale = Vector2( 0.04, 0.04 )
-texture = ExtResource( 3 )
-
-[node name="kruunu5" type="Sprite" parent="kruunut"]
-modulate = Color( 1, 0.882353, 0.337255, 1 )
-position = Vector2( 1, -55 )
-rotation = 0.816814
-scale = Vector2( 0.04, 0.04 )
-texture = ExtResource( 3 )
-
-[node name="kruunu6" type="Sprite" parent="kruunut"]
-modulate = Color( 1, 0.882353, 0.337255, 1 )
-position = Vector2( 1, -61 )
-rotation = 0.816814
-scale = Vector2( 0.04, 0.04 )
-texture = ExtResource( 3 )
-
-[node name="kruunu7" type="Sprite" parent="kruunut"]
-modulate = Color( 1, 0.882353, 0.337255, 1 )
-position = Vector2( 1, -67 )
-rotation = 0.816814
-scale = Vector2( 0.04, 0.04 )
-texture = ExtResource( 3 )
-
-[node name="kruunu8" type="Sprite" parent="kruunut"]
-modulate = Color( 1, 0.882353, 0.337255, 1 )
-position = Vector2( 1, -73 )
-rotation = 0.816814
-scale = Vector2( 0.04, 0.04 )
-texture = ExtResource( 3 )
-
-[node name="kruunu9" type="Sprite" parent="kruunut"]
-modulate = Color( 1, 0.882353, 0.337255, 1 )
-position = Vector2( 1.00001, -78 )
-rotation = 0.816814
-scale = Vector2( 0.04, 0.04 )
 texture = ExtResource( 3 )
 
 [node name="Naama" type="Node2D" parent="."]

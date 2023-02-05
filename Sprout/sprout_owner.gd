@@ -32,12 +32,13 @@ func _remove_unused_potatoes():
 		new_potatoes.append_array(s.GetRipePositions())
 		s.queue_free();
 	
-	print("Generate new pottus:" + str(len(new_potatoes)))
+	# print("Generate new pottus:" + str(len(new_potatoes)))
 	sprouts = []
 	
 	for newPos in new_potatoes:
 		var grenade = preload("res://Grenade/Grenade.tscn").instance()
 		grenade.position = newPos
+		grenade.apply_central_impulse(Vector2(0, 100 + randf()*100))
 		get_node("..").add_child(grenade)
 	if len(new_potatoes) == 0:
 		var y = maailma.get_latest_terrain_y()

@@ -15,8 +15,8 @@ var game_running = true
 var wait_for_first_sprout = true
 var game_end_start_time = 1000 * 1000
 
-const TRANSITION_DURATION = 2.0
-const ROUND_DURATION = 8.0
+const TRANSITION_DURATION = 0.0
+const ROUND_DURATION = 0.0
 
 const reactivate_ceiling_time = 7.0
 var reactivated_ceiling_collider = false
@@ -170,16 +170,22 @@ func score(player_number):
 func reset_collision_mask(var enemy):
 	enemy.set_collision_layer_bit(3, true);
 
+func end_screen():
+	var fade = clamp((Time.get_ticks_msec() - game_end_start_time) / 3000.0 - 0.66, 0.0, 1.0)
+	$game_cam.get_node("end_screen").modulate.a = fade
+	var progress = lerp(1.0, 0.4, min(1.0, (Time.get_ticks_msec() - game_end_start_time) / 1000.0))
+	round_end_curtain_effect.set_shader_param("progress", progress)
+	if not audio.victory_musa.playing or game_end_start_time + 15 * 1000 < Time.get_ticks_msec():
+		# restart game
+		get_tree().reload_current_scene()
+	
+
 func _process(delta):
 	if Input.is_action_just_pressed("toggle_fullscreen"):
 		OS.window_fullscreen = !OS.window_fullscreen
 		
 	if not game_running:
-		var progress = lerp(1.0, 0.4, min(1.0, (Time.get_ticks_msec() - game_end_start_time) / 1000.0))
-		round_end_curtain_effect.set_shader_param("progress", progress)
-		if not audio.victory_musa.playing or game_end_start_time + 15 * 1000 < Time.get_ticks_msec():
-			# restart game
-			get_tree().reload_current_scene()
+		end_screen()
 		return
 	if not wait_for_first_sprout and not audio.bgm.playing:
 		audio.bgm.play()

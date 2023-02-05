@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://game_cam.gd" type="Script" id=1]
 [ext_resource path="res://maailma.gd" type="Script" id=2]
@@ -22,6 +22,7 @@
 [ext_resource path="res://Perunasoundit/8.wav" type="AudioStream" id=20]
 [ext_resource path="res://Perunasoundit/13.wav" type="AudioStream" id=21]
 [ext_resource path="res://GUI.tscn" type="PackedScene" id=22]
+[ext_resource path="res://end_screen.tscn" type="PackedScene" id=23]
 
 [sub_resource type="Curve" id=1]
 _data = [ Vector2( 0, 0 ), 0.0, -3.64857, 0, 0, Vector2( 0.0164448, 0 ), 0.263843, 0.263843, 0, 0, Vector2( 0.636648, 0.736364 ), 4.35341, 4.35341, 0, 0, Vector2( 0.683634, 1 ), 5.80454, 5.80454, 0, 0, Vector2( 0.730619, 1 ), -2.48767, -2.48767, 0, 0, Vector2( 0.785435, 1 ), 2.32181, 2.32181, 0, 0, Vector2( 0.843383, 1 ), -0.269979, -0.269979, 0, 0, Vector2( 0.914644, 1 ), -1.85647e-06, -1.85647e-06, 0, 0, Vector2( 1, 1 ), -0.203668, 0.0, 0, 0 ]
@@ -29,9 +30,11 @@ _data = [ Vector2( 0, 0 ), 0.0, -3.64857, 0, 0, Vector2( 0.0164448, 0 ), 0.26384
 [node name="Maailma" type="Node2D"]
 script = ExtResource( 2 )
 
+[node name="ending_screen" parent="." instance=ExtResource( 22 )]
+
 [node name="input" parent="." instance=ExtResource( 4 )]
 
-[node name="GUI" parent="." instance=ExtResource( 22 )]
+[node name="tutorial" parent="." instance=ExtResource( 22 )]
 
 [node name="game_cam" type="Camera2D" parent="."]
 current = true
@@ -91,6 +94,9 @@ stream = ExtResource( 11 )
 position = Vector2( 1, 41 )
 scale = Vector2( 1.17, 0.8 )
 z_index = 10
+
+[node name="end_screen" parent="game_cam" instance=ExtResource( 23 )]
+modulate = Color( 1, 1, 1, 0 )
 
 [node name="sprout_owner" parent="." instance=ExtResource( 5 )]
 position = Vector2( 0, 1 )

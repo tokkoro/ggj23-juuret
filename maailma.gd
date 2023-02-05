@@ -89,6 +89,7 @@ func _ready():
 	new_terrain()
 	new_round()
 	spawn_players()
+	round_end_curtain_effect.set_shader_param("progress", 1.0)
 
 func _physics_process(delta):
 	for player_number in range(len(players)):
@@ -174,6 +175,8 @@ func _process(delta):
 		OS.window_fullscreen = !OS.window_fullscreen
 		
 	if not game_running:
+		var progress = lerp(1.0, 0.4, min(1.0, (Time.get_ticks_msec() - game_end_start_time) / 1000.0))
+		round_end_curtain_effect.set_shader_param("progress", progress)
 		if not audio.victory_musa.playing or game_end_start_time + 15 * 1000 < Time.get_ticks_msec():
 			# restart game
 			get_tree().reload_current_scene()

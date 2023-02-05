@@ -5,7 +5,7 @@ class_name Terraingen
 export var ground_far_color: Color = Color.black;
 export var ground_surface_color: Color = Color(0.58, 0.23, 0.02, 1.0);
 
-var ground_width = 1280
+var ground_width = 1350
 var ground_offset = 150
 var ground_height = 250
 

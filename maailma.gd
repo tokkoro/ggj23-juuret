@@ -114,10 +114,11 @@ func _physics_process(delta):
 		var is_someone_at_top = top_raycast.is_colliding();
 		
 		if is_someone_at_top:
-			var enemy = top_raycast.get_collider();
-			var flipped = 1;
-			if player_sprite.flip_h:
-				flipped = -1;
+			var enemy : RigidBody2D = top_raycast.get_collider();
+			var flipped = 1
+			var still = enemy.dead or abs(enemy.linear_velocity.x) < 1
+			if (still and right) or (not still and enemy.get_node("GrenadeThrow").flip):
+				flipped = -1
 			enemy.apply_central_impulse(Vector2(flipped * 320, -300.0))
 			enemy.im_hit_no_collision_timer.connect("timeout",self,"reset_collision_mask")
 			enemy.im_hit_no_collision_timer.wait_time = 0.3

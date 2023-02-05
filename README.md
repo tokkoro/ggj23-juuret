@@ -14,12 +14,13 @@ You need a Godot with Mono support.
 
 ## Play
 
+Builds are in Builds/ directory. Linux and Web builds are provided.
+
 Move your character near a potato and press the Throw/Plant to throw/plant it.
 
 Plant some potatoes (throw to ground) to end the first round.
 
 The game lasts for 12 rounds, 8 seconds each.
-
 
 ### Controls
 

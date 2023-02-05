@@ -1,6 +1,5 @@
 extends Node2D
 
-
 var target_player = null
 
 var crownsGfxs = [] 
@@ -33,3 +32,8 @@ func _process(delta):
 		crownsGfxs[0].global_position = global_position
 	for c in crownsGfxs:
 		c.update_position(delta)
+
+
+func burn():
+	for c in crownsGfxs:
+		c.burn()

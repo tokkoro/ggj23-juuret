@@ -1,11 +1,13 @@
 extends Sprite
 
-
-
 var player = null
 var target_crown = null
 
+var color: Color = Color(1,1,1,1)
+var black = Color(0,0,0,1)
 
+var burning = false
+var burning_duration = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,3 +34,14 @@ func update_position(delta):
 		
 		global_position = Vector2(target_pos.x - delta_x, self_pos.y + move_y)
 		
+
+func burn():
+	# print("BURN pot " + name)
+	burning = true
+	burning_duration = 0
+	
+func _process(delta):
+	if burning:
+		burning_duration += delta
+		var c = color.linear_interpolate(black, clamp(burning_duration, 0, 1))
+		modulate = c

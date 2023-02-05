@@ -13,6 +13,8 @@ var black = Color(0,0,0,1)
 var burning = false
 var burning_duration = 0
 
+var kruunut
+
 func _ready():
 	if player_number == 0:
 		color = Color(1.0, 0.5, 0.5)
@@ -24,10 +26,9 @@ func _ready():
 		color = Color(0.9, 0.9, 0.5)
 	$Sprite.modulate = color
 	
-	var crown = preload("res://player/kruunut.tscn").instance()
-	crown.target_player = self
-	get_node("..").add_child(crown)
-	print("p ready", player_number)
+	kruunut = preload("res://player/kruunut.tscn").instance()
+	kruunut.target_player = self
+	get_node("..").add_child(kruunut)
 
 func _physics_process(delta):
 	pass
@@ -41,6 +42,10 @@ func burn():
 	# print("BURN p " + name)
 	burning = true
 	burning_duration = 0
+	kruunut.burn()
+	for o in get_node('./face').get_children():
+		if "eye" in o.name:
+			o.burn()
 	
 func _process(delta):
 	if burning:

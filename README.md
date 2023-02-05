@@ -24,7 +24,7 @@ The game lasts for 12 rounds, 8 seconds each.
 
 ### Controls
 
-Plaeyr actions are Left, Throw/Plant, Right.
+Player actions are Left, Pickup/Throw, Right.
 
 The four playes use the following keys for actions:
 - ASD

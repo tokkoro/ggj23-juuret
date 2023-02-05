@@ -26,5 +26,5 @@ void fragment() {
 
 void vertex() {
 	VERTEX += vec2(0.0, 50.0);
-	VERTEX += vec2(0.0, sin(TIME * 2.0)*200.0);
+	VERTEX += vec2(0.0, sin(progress * 2.0)*200.0);
 }"

@@ -88,6 +88,7 @@ stream = ExtResource( 18 )
 stream = ExtResource( 11 )
 
 [node name="flames" parent="game_cam" instance=ExtResource( 3 )]
+position = Vector2( 1, 41 )
 scale = Vector2( 1.17, 0.8 )
 z_index = 10
 

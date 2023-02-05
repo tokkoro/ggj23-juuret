@@ -15,7 +15,7 @@ var game_running = true
 var wait_for_first_sprout = true
 
 const TRANSITION_DURATION = 2.0
-const ROUND_DURATION = 8.0
+const ROUND_DURATION = 10.0
 
 var players = []
 var player_spawn_points = [Vector2(0,-100), Vector2(100,-100), Vector2(300,-100), Vector2(400,-100)]

@@ -35,7 +35,7 @@ func launch_potato(facing, force):
 	bomb.position = global_position + spawn_offset
 	bomb.from_player = parent
 	bomb.from_player_number = parent.player_number
-	bomb.apply_central_impulse(Vector2(facing * (0.3 + force), -1 * (0.7 + force * 0.5))*100)
+	bomb.apply_central_impulse(Vector2(facing * (0.3 + force+ sqrt(force)), -1 * (0.4 + force * sqrt(force) * 0.35))*100)
 	get_node("../..").add_child(bomb)
 	maailma.audio.play("throw")
 
@@ -69,6 +69,6 @@ func _physics_process(delta):
 		power_indicator.scale.x = 1; #facing * throw_force * 0.3
 		var pool_array = PoolVector2Array()
 		pool_array.push_back(Vector2(facing * 10, 0))
-		pool_array.push_back(Vector2(facing*10, 0) + Vector2(facing * (0.3 + throw_force), -1 * (0.7 + throw_force * 0.5))*10)
+		pool_array.push_back(Vector2(facing*10, 0) + Vector2(facing * (0.3 + throw_force+ sqrt(throw_force)), -1 * (0.4 + throw_force * sqrt(throw_force) * 0.35))*10)
 		power_indicator.points = pool_array
 		power_indicator.default_color = low_color.linear_interpolate(power_color, clamp(throw_force/10, 0, 1) )

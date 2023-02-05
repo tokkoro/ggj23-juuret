@@ -2,11 +2,12 @@ extends Node2D
 
 class_name Terraingen
 
-var ground_far_color: Color = Color.brown.linear_interpolate(Color.black, 0.75);
+export var ground_far_color: Color = Color.black;
+export var ground_surface_color: Color = Color(0.58, 0.23, 0.02, 1.0);
 
 var ground_width = 1280
 var ground_offset = 150
-var ground_height = 500
+var ground_height = 250
 
 func get_terrain_whole_height():
 	return (ground_height + ground_offset) * 2.0;
@@ -118,7 +119,7 @@ func genterrain(root: Node2D, width: float, height: float, offset: float, seed_v
 			h + offset
 		);
 		
-		gp.color = Color.brown.linear_interpolate(Color.black, rand_range(0, 0.3));
+		gp.color = ground_surface_color.linear_interpolate(Color.black, rand_range(0, 0.1));
 		
 		ground_points.push_back(gp);
 	

@@ -13,6 +13,7 @@ colors = PoolColorArray( 0.34902, 0.219608, 0.0666667, 1, 0.980392, 0.627451, 0.
 
 [node name="Pottu" type="Node2D"]
 position = Vector2( 10, 200 )
+scale = Vector2( 2, 2 )
 script = ExtResource( 2 )
 
 [node name="Debug_ground_pos" type="Line2D" parent="."]

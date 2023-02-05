@@ -51,7 +51,7 @@ public class Pottu : Node2D
         // returns negative when too high, so too negative, but positive when tool low
         float deep = groundHitPosition.y - targetPos.y;
         // GD.Print("Syvyys " + deep);
-        return pos.y - (deep + 7); // 7 is bias to lower the ground point a bit as it's more desired
+        return pos.y - (deep + 17); // 7 is bias to lower the ground point a bit as it's more desired
     }
 
     public void SetStartPosition(Vector2 position)
@@ -59,7 +59,7 @@ public class Pottu : Node2D
         GD.Print("SetStartPosition " + position);
 
         groundHitPosition = position;
-        targetPos = groundHitPosition + Vector2.Down * (25 + 10 * GD.Randf());
+        targetPos = groundHitPosition + Vector2.Down * (45 + 10 * GD.Randf());
     }
 
     public void Initalize()
@@ -79,8 +79,8 @@ public class Pottu : Node2D
             growPointOffset = stemStart, //new Vector2(1, -3),
             targetHeadPosition = stemEnd,
             groundBreakingPoint = Vector2.Up,
-            controlPoint0 = stemStart + new Vector2((float)GD.RandRange(-5, 5), (float)GD.RandRange(-20, -30)),
-            controlPoint1 = stemEnd + new Vector2((float)GD.RandRange(-5, 5), (float)GD.RandRange(20, 30)),
+            controlPoint0 = stemStart + new Vector2((float)GD.RandRange(-5, 5), (float)GD.RandRange(-20, -5)),
+            controlPoint1 = stemEnd + new Vector2((float)GD.RandRange(-5, 5), (float)GD.RandRange(20, 5)),
         };
 
         float maxLimit = 1;
@@ -121,9 +121,9 @@ public class Pottu : Node2D
         {
             return;
         }
-        float t = Mathf.Clamp((this.totalTime - seed.startTime - seed.growStartDelay) / 10f, 0, 1);
+        float t = Mathf.Clamp((this.totalTime - seed.startTime - seed.growStartDelay) / 5f, 0, 1);
 
-        // TODO: grow seed
+        // TODO: grow/animate seed
 
         // Stem
         // this.stem.headPoint = this.stem.growPointOffset.LinearInterpolate(this.stem.targetHeadPosition, t);
@@ -232,7 +232,7 @@ public class Pottu : Node2D
     {
         if (isRoot)
         {
-            Vector2 targetPos = position + new Vector2(side == Side.RIGHT ? 30 : -30, 10) + new Vector2((side == Side.RIGHT ? 1 : -1) * GD.Randf(), GD.Randf()) * 10;
+            Vector2 targetPos = position + new Vector2(side == Side.RIGHT ? 30 : -30, 50) + new Vector2((side == Side.RIGHT ? 1 : -1) * GD.Randf(), GD.Randf()) * 10;
             this.roots.Add(new Root()
             {
                 duration = 1,
@@ -240,8 +240,8 @@ public class Pottu : Node2D
                 side = side,
                 growPointOffset = position,
                 targetHeadPosition = targetPos,
-                controlPoint0 = position + (side == Side.RIGHT ? Vector2.Right : Vector2.Left) * (float)GD.RandRange(5, 30) + new Vector2(0, (float)GD.RandRange(-5, 20)),
-                controlPoint1 = targetPos + new Vector2((side == Side.RIGHT ? -10 : 10) * GD.Randf(), (float)GD.RandRange(-10, 5)),
+                controlPoint0 = position + (side == Side.RIGHT ? Vector2.Right : Vector2.Left) * (float)GD.RandRange(15, 50) + new Vector2(0, (float)GD.RandRange(-5, 20)),
+                controlPoint1 = targetPos + new Vector2((side == Side.RIGHT ? -20 : 20) * GD.Randf(), (float)GD.RandRange(-10, 5)),
             });
             PackedScene rootBase = ResourceLoader.Load<PackedScene>("res://juurtuva_pottu/RootGfx.tscn");
             Node newNode = rootBase.Instance();
@@ -250,7 +250,7 @@ public class Pottu : Node2D
         }
         else
         {
-            Vector2 targetPos = position + new Vector2(side == Side.RIGHT ? 30 : -30, 10) + new Vector2((side == Side.RIGHT ? 1 : -1) * GD.Randf(), GD.Randf()) * 10;
+            Vector2 targetPos = position + new Vector2(side == Side.RIGHT ? 30 : -30, 30) + new Vector2((side == Side.RIGHT ? 1 : -1) * GD.Randf(), GD.Randf()) * 10;
             this.stolons.Add(new Stolon()
             {
                 duration = 2,
@@ -258,8 +258,8 @@ public class Pottu : Node2D
                 side = side,
                 growPointOffset = position,
                 targetHeadPosition = targetPos,
-                controlPoint0 = position + (side == Side.RIGHT ? Vector2.Right : Vector2.Left) * (float)GD.RandRange(5, 10),
-                controlPoint1 = targetPos + new Vector2((side == Side.RIGHT ? -20 : 20) * GD.Randf(), (float)GD.RandRange(-10, 0)),
+                controlPoint0 = position + (side == Side.RIGHT ? Vector2.Right : Vector2.Left) * (float)GD.RandRange(20, 30),
+                controlPoint1 = targetPos + new Vector2((side == Side.RIGHT ? -30 : 30) * GD.Randf(), (float)GD.RandRange(-10, 0)),
             });
             PackedScene stolonBase = ResourceLoader.Load<PackedScene>("res://juurtuva_pottu/StolonGfx.tscn");
             Node newNode = stolonBase.Instance();

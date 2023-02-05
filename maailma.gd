@@ -17,6 +17,9 @@ var wait_for_first_sprout = true
 const TRANSITION_DURATION = 2.0
 const ROUND_DURATION = 10.0
 
+const reactivate_ceiling_time = 7.0
+var reactivated_ceiling_collider = false
+
 var players = []
 var player_spawn_points = [Vector2(0,-100), Vector2(100,-100), Vector2(300,-100), Vector2(400,-100)]
 var player_scores = [0,0,0,0]
@@ -172,6 +175,7 @@ func _process(delta):
 	if transition:
 		if not transition_halfway && round_time_left < -TRANSITION_DURATION * 0.5:
 			transition_halfway = true
+			reactivated_ceiling_collider = false
 			for i in range(len(players)):
 				player_spawn_points[i].x = players[i].position.x
 				players[i].queue_free()
@@ -194,6 +198,11 @@ func _process(delta):
 			end_round()
 		else:
 			end_game()
+	
+	if (not reactivated_ceiling_collider) and (round_time_left < reactivate_ceiling_time):
+		print("Activate ceiling")
+		reactivated_ceiling_collider = true
+		#round_terrains.back().start_colliding()
 
 func end_game():
 	print("game over!")

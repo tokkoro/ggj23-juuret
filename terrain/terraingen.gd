@@ -12,10 +12,6 @@ var ground_height = 250
 func get_terrain_whole_height():
 	return (ground_height + ground_offset) * 2.0;
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
 func generate_terrain():
 	var terrain_old = get_node_or_null("terrain")
 	if terrain_old:
@@ -57,7 +53,15 @@ func stop_colliding():
 			if c_2 is CollisionPolygon2D:
 				print("Stop colliding " + name + " child " + c_2.name)
 				c_2.disabled = true
-	
+				
+func start_colliding():
+	for c in get_node('./terrain').get_children():
+		for c_2 in c.get_children():
+			if c_2 is CollisionPolygon2D:
+				print("Start colliding " + name + " child " + c_2.name)
+				c_2.disabled = false
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -175,9 +179,9 @@ func genterrain(root: Node2D, width: float, height: float, offset: float, seed_v
 	col.append(Vector2(ground_points.front().p.x, offset + height));
 	var body = StaticBody2D.new();
 	body.set_collision_mask_bit(10, true)
-	if add_collision:
-		var body_shape = CollisionPolygon2D.new();
-		body_shape.polygon = col;
-		body.add_child(body_shape)
+	var body_shape = CollisionPolygon2D.new();
+	body_shape.polygon = col;
+	body.add_child(body_shape)
+	body_shape.disabled = !add_collision
 	root.add_child(body)
 	

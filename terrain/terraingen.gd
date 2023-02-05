@@ -42,8 +42,8 @@ func generate_terrain():
 		false
 	)
 	
-	gen_side_body(terrain_node, ground_width, (ground_height + ground_offset) * 2.0, 1)
-	gen_side_body(terrain_node, ground_width, (ground_height + ground_offset) * 2.0, -1)
+	gen_side_body(terrain_node, ground_width - 105, (ground_height + ground_offset) * 2.0, 1)
+	gen_side_body(terrain_node, ground_width - 100, (ground_height + ground_offset) * 2.0, -1)
 	
 	add_child(terrain_node)
 

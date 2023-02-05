@@ -44,7 +44,7 @@ func _remove_unused_potatoes():
 		var y = maailma.get_latest_terrain_y()
 		for i in range(4):
 			var grenade = preload("res://Grenade/Grenade.tscn").instance()
-			grenade.position.x = -300.0 + i * 200.0 - rand_range(-100.0, 100.0)
+			grenade.position.x = rand_range(-450.0, 450.0)
 			grenade.position.y = y
 			get_node("..").add_child(grenade)
 
@@ -54,7 +54,7 @@ func _ready():
 func _process(delta):
 	for i in range(spawn_potato_count):
 		var grenade = preload("res://Grenade/Grenade.tscn").instance()
-		grenade.position.x = -300.0 + i * 200.0 - rand_range(-100.0, 100.0)
-		grenade.position.y = -100.0 + rand_range(0.0, 100.0)
+		grenade.position.x = rand_range(-450.0, 450.0)
+		grenade.position.y = rand_range(-100.0, 50.0)
 		get_node("..").add_child(grenade)
 	spawn_potato_count = 0

@@ -35,11 +35,9 @@ func _process(delta: float):
 	
 	transition(delta, time_now)
 	if rotating:
-		rotation = sin(time_now / 4.0) * PI / 128.0
+		rotation = sin(time_now / 4.0) * PI / 188.0
 	else:
 		rotation = 0;
-			
-	# rotation = randf() * PI
 	
 func _input(event):
 	if Input.is_action_pressed("stop_rotation"):

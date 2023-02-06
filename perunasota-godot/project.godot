@@ -35,6 +35,7 @@ window/stretch/aspect="keep_height"
 [global]
 
 input=false
+release=false
 
 [gui]
 
